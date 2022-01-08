@@ -26,6 +26,7 @@ export const AdditionColumn = styled.div`
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
+  text-transform: capitalize;
   flex-shrink: 0;
 
   > *:first-child {

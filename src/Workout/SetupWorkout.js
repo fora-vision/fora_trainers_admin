@@ -24,7 +24,7 @@ const SetupWorkout = () => {
   const workout = store.getWorkout(params.course, params.workout);
   const saveWorkout = async () => {
     if (workout.isDraft) await course.saveDraftWorkout();
-    else await course.save()
+    else await course.save();
     navigate(backPath);
   };
 
@@ -36,7 +36,9 @@ const SetupWorkout = () => {
     <Container>
       <VSpace s={56} />
 
-      <H1>{workout.isDraft ? "Создать тренировку" : "Редактировать тренировку"}</H1>
+      <H1>
+        {workout.isDraft ? "Создать тренировку" : "Редактировать тренировку"}
+      </H1>
       <VSpace s={40} />
 
       <H2>Общая информация</H2>
@@ -56,8 +58,32 @@ const SetupWorkout = () => {
       {workout.sets.map((set, setIndex) => (
         <S.SetCard>
           <SpaceBetween>
-            <H3>СЕТ {setIndex + 1}</H3>
-            <PSmall>Количество повторов сета:</PSmall>
+            <SpaceBetween>
+              <H3>СЕТ {setIndex + 1}</H3>
+              <PureButton
+                style={{ marginLeft: 16 }}
+                onClick={() => workout.removeSet(setIndex)}
+              >
+                <IconTrash />
+              </PureButton>
+            </SpaceBetween>
+
+            <SpaceBetween>
+              <PSmall>Количество повторов сета:</PSmall>
+              <S.RepeatsSelect
+                value={set.repeats}
+                items={[
+                  { value: "1", label: "1" },
+                  { value: "2", label: "2" },
+                  { value: "3", label: "3" },
+                  { value: "4", label: "4" },
+                  { value: "5", label: "5" },
+                ]}
+                onChange={(e) =>
+                  workout.changeSetRepeats(setIndex, e.target.value)
+                }
+              />
+            </SpaceBetween>
           </SpaceBetween>
           <VSpace s={36} />
 
@@ -70,7 +96,7 @@ const SetupWorkout = () => {
 
           {set.exercises.map((ex, exIndex) => (
             <S.Row>
-              <P>{ex.label}</P>
+              <P>{store.getExerciseName(ex.label)}</P>
               <P>{ex.getExecuteValue()}</P>
               <P>{ex.modificators.length} модификатора</P>
               <div style={{ display: "flex" }}>

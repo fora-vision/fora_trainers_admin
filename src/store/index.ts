@@ -16,7 +16,7 @@ class ForaStore {
       login: action,
       logout: action,
       cloneCourse: action,
-      removeCourse: action
+      removeCourse: action,
     });
 
     const session = localStorage.getItem("session");
@@ -26,11 +26,21 @@ class ForaStore {
     }
   }
 
+  getExerciseName(id: string) {
+    return this.exercises[id].name
+  }
+
   getExercisesList() {
-    return Object.entries(this.exercises).map(([id, ex]) => ({
-      value: id,
-      label: ex.name,
-    }));
+    return Object.entries(this.exercises)
+      .map(([id, ex]) => ({
+        value: id,
+        label: ex.name,
+      }))
+      .sort((a, b) => {
+        if (a.label < b.label) return -1;
+        if (a.label > b.label) return 1;
+        return 0;
+      });
   }
 
   async createCourse(name: string, description: string) {

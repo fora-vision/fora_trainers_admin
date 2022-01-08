@@ -20,11 +20,11 @@ function SetupExercise() {
 
   const workout = store.getWorkout(params.course, params.workout);
   const exercise = workout?.getExercise(params.set, params.exercise);
-  const backPath = `/courses/${params.course}/${params.workout}`
+  const backPath = `/courses/${params.course}/${params.workout}`;
 
   const saveExercise = () => {
     if (exercise.isDraft) workout.saveDraftExercise(params.set);
-    navigate(backPath, { replace: true })
+    navigate(backPath, { replace: true });
   };
 
   if (exercise == null) {
@@ -32,7 +32,11 @@ function SetupExercise() {
   }
 
   return (
-    <Modal width={448} isOpen onClose={() => navigate(backPath, { replace: true })}>
+    <Modal
+      width={448}
+      isOpen
+      onClose={() => navigate(backPath, { replace: true })}
+    >
       <PBold style={{ textAlign: "center" }}>
         {exercise.isDraft ? "Добавить упражнение" : "Редактировать"}
       </PBold>
@@ -68,6 +72,7 @@ function SetupExercise() {
           onChange={(e) => exercise.setValue(e.target.value)}
           value={exercise.value}
           items={[
+            { value: "2", label: "2 повторов" },
             { value: "5", label: "5 повторов" },
             { value: "10", label: "10 повторов" },
             { value: "15", label: "15 повторов" },
@@ -90,16 +95,17 @@ function SetupExercise() {
         />
       )}
 
-      <VSpace s={24} />
-
-      <SpaceBetween>
-        <P>Модификаторы</P>
-        <Link to="modifiers">
-          <PureButton>
-            <P>Добавить</P>
-          </PureButton>
-        </Link>
-      </SpaceBetween>
+      {/* 
+        <VSpace s={24} />
+        <SpaceBetween>
+          <P>Модификаторы</P>
+          <Link to="modifiers">
+            <PureButton>
+              <P>Добавить</P>
+            </PureButton>
+          </Link>
+        </SpaceBetween>
+      */}
 
       <VSpace s={32} />
 

@@ -25,7 +25,7 @@ const Course = () => {
 
         <SpaceBetween>
           <Link to={`/courses/${course.id}/create`}>
-            <StrokeButton>Опубликовать</StrokeButton>
+            <StrokeButton disabled>Опубликовать</StrokeButton>
           </Link>
           <Link style={{ marginLeft: 16 }} to={`/courses/${course.id}/create`}>
             <ActionButton>Создать тренировку</ActionButton>
@@ -37,7 +37,7 @@ const Course = () => {
         {course.workouts.map((workout, i) => (
           <Card
             number={i}
-            title={workout.name}
+            title={workout.name || "Не указано"}
             properties={[{ label: "Кол-во сетов", value: workout.sets.length }]}
             onClick={() => navigate(`/courses/${course.id}/${i}`)}
             actions={

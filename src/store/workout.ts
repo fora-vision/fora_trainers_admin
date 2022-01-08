@@ -1,7 +1,6 @@
 import { action, makeObservable, observable, toJS } from "mobx";
-import api from "./api";
+import { WorkoutDTO } from "./models";
 import ExerciseModel from "./exercise";
-import { ExerciseDTO, WorkoutDTO } from "./models";
 
 class WorkoutModel {
   name: string;
@@ -25,6 +24,7 @@ class WorkoutModel {
       changeSetRepeats: action,
       removeExercise: action,
       saveDraftExercise: action,
+      removeSet: action,
       addSet: action,
     });
 
@@ -49,7 +49,7 @@ class WorkoutModel {
   }
 
   addSet() {
-    this.sets.push({ name: "", repeats: 0, exercises: [] });
+    this.sets.push({ name: "", repeats: 1, exercises: [] });
   }
 
   changeSetName(set: number, name: string) {
@@ -58,6 +58,10 @@ class WorkoutModel {
 
   changeSetRepeats(set: number, repeat: number) {
     this.sets[set].repeats = repeat;
+  }
+
+  removeSet(set: number) {
+    this.sets.splice(set, 1);
   }
 
   removeExercise(set: number, exercise: number) {

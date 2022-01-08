@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { ActionButton } from "../components/button";
 import { PBold } from "../components/typographic";
-import { Input } from "../components/input";
+import { Input, Textarea } from "../components/input";
 import { VSpace } from "../components/layout";
 import Modal from "../components/Modal";
 import store from "../store";
@@ -32,7 +32,7 @@ function CreateCourse() {
         onChange={(e) => setName(e.target.value)}
       />
       <VSpace s={16} />
-      <Input
+      <Textarea
         value={description}
         placeholder="Описание курса"
         onChange={(e) => setDescription(e.target.value)}

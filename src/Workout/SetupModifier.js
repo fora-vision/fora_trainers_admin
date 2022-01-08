@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PBold } from "../components/typographic";
 import Modal from "../components/Modal";
 import { VSpace } from "../components/layout";

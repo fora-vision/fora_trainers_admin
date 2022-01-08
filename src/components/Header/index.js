@@ -28,9 +28,6 @@ function Header() {
         <S.HeaderButton to="/courses" isSelected={pathname.includes("course")}>
           <P>Курсы тренировок</P>
         </S.HeaderButton>
-        <S.HeaderButton to="/people" isSelected={pathname.includes("people")}>
-          <P>Список учеников</P>
-        </S.HeaderButton>
         <PureButton style={{ marginLeft: "auto" }} onClick={logout}>
           <P>Выйти</P>
         </PureButton>
