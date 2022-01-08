@@ -7,7 +7,6 @@ import { ActionButton } from "../components/button";
 import Select from "../components/select";
 
 function SetupModifier() {
-  const params = useParams();
   const navigate = useNavigate();
 
   return (

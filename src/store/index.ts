@@ -1,49 +1,94 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
+import CourseModel from "./course";
+import { ExerciseRuleDTO } from "./models";
+import WorkoutModel from "./workout";
+import api from "./api";
 
 class ForaStore {
-  isLoged = true;
-  courses = [
-    {
-      id: 0,
-      title: "Курс",
-      created: +new Date(),
-      exercises: [
-        { id: 0, title: "Тренировка 1", created: +new Date(), sex: 0, sets: [] },
-        { id: 1, title: "Тренировка 2", created: +new Date(), sex: 0, sets: [] },
-      ],
-    },
-    {
-      id: 1,
-      title: "Курс",
-      created: +new Date(),
-      exercises: [
-        { id: 2, title: "Курс", created: +new Date(), sex: 0, sets: [] },
-        { id: 3, title: "Курс", created: +new Date(), sex: 0, sets: [] },
-      ],
-    },
-  ];
+  isLoged = false;
+  courses: CourseModel[] = [];
+  exercises: Record<string, ExerciseRuleDTO> = {};
 
   constructor() {
     makeObservable(this, {
       isLoged: observable,
+      courses: observable,
       login: action,
       logout: action,
+      cloneCourse: action,
+      removeCourse: action
     });
+
+    const session = localStorage.getItem("session");
+    if (session) {
+      this.isLoged = true;
+      api.setAuthToken(session);
+    }
+  }
+
+  getExercisesList() {
+    return Object.entries(this.exercises).map(([id, ex]) => ({
+      value: id,
+      label: ex.name,
+    }));
+  }
+
+  async createCourse(name: string, description: string) {
+    const course = await api.createCourse(name, description);
+    runInAction(() => this.courses.push(new CourseModel(course)));
+  }
+
+  async updateCourse(id: number) {
+    const model = this.getCourse(id);
+    if (!model) return;
+
+    const course = model.serialize();
+    await api.updateCourse(model.id, course);
   }
 
   getCourse(course: number) {
     return this.courses.find((item) => item.id == course);
   }
 
-  getExercise(course: number, exercise: number) {
-    return this.getCourse(course)?.exercises.find((ex) => ex.id == exercise);
+  getWorkout(course: number, workout: number | "create"): WorkoutModel | null {
+    const model = this.getCourse(course);
+    if (workout === "create") return model?.draftWorkout ?? null;
+    return model?.workouts[workout] ?? null;
   }
 
-  login(email: string, pass: string) {
-    this.isLoged = true;
+  async removeCourse(id: number) {
+    this.courses = this.courses.filter((item) => item.id !== id);
+    await api.deleteCourse(id);
   }
 
-  logout() {
+  async cloneCourse(id: number) {
+    const index = this.courses.findIndex((c) => c.id == id);
+    const course = this.courses[index].serialize();
+    const newCourse = await api.createCourse(course.name, course.description);
+    await api.updateCourse(newCourse.id, course);
+    this.courses.splice(index, 0, new CourseModel(course));
+  }
+
+  async loadCourses() {
+    const courses = await api.getCourses();
+    const exercises = await api.getExercises();
+    runInAction(() => {
+      this.exercises = exercises;
+      this.courses = courses.map((course) => new CourseModel(course));
+    });
+  }
+
+  async login(email: string, pass: string) {
+    const user = await api.login(email, pass);
+    runInAction(() => {
+      api.setAuthToken(user.session);
+      localStorage.setItem("session", user.session);
+      this.isLoged = true;
+    });
+  }
+
+  async logout() {
+    localStorage.setItem("session", "");
     this.isLoged = false;
   }
 }

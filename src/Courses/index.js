@@ -1,22 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+
+import { ReactComponent as IconTrash } from "../components/icons/trash.svg";
+import { ReactComponent as IconCopy } from "../components/icons/copy.svg";
+
 import { ActionButton, PureButton } from "../components/button";
-import { formatDate } from "../components/date";
 import { Container } from "../components/layout";
-import { H1, PSmall } from "../components/typographic";
+import { H1 } from "../components/typographic";
 import Card from "../components/Card";
 import store from "../store";
 import * as S from "./styled";
 
 const Courses = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    void store.loadCourses();
+  }, [])
 
   return (
     <Container>
       <S.Header>
         <H1>Курсы тренировок</H1>
         <Link to="/courses/create">
-          <ActionButton>Создать тренировку</ActionButton>
+          <ActionButton>Создать курс</ActionButton>
         </Link>
       </S.Header>
 
@@ -25,16 +32,24 @@ const Courses = () => {
           <Card
             key={course.id}
             number={i}
-            title={course.title}
+            title={course.name}
             properties={[
-              { label: "Дата создания", value: formatDate(course.created) },
-              { label: "Кол-во тренировок", value: course.exercises.length },
+              { label: "Кол-во тренировок", value: course.workouts.length },
             ]}
             onClick={() => navigate(`/courses/${course.id}`)}
             actions={
-              <PureButton>
-                <PSmall style={{ color: "#EF7A6D" }}>Удалить</PSmall>
-              </PureButton>
+              <div style={{ display: "flex" }}>
+                <PureButton onClick={() => store.cloneCourse(course.id)}>
+                  <IconCopy />
+                </PureButton>
+
+                <PureButton
+                  style={{ marginLeft: 8 }}
+                  onClick={() => store.removeCourse(course.id)}
+                >
+                  <IconTrash />
+                </PureButton>
+              </div>
             }
           ></Card>
         ))}
@@ -43,4 +58,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default observer(Courses)

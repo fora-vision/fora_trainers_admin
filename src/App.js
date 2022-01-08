@@ -9,10 +9,10 @@ import CreateCourse from "./Courses/Create";
 import Header from "./components/Header";
 import RequireAuth from "./components/RequireAuth";
 
-import SetupSet from "./Exercise/SetupSet";
-import Modifiers from "./Exercise/Modifiers";
-import SetupModifier from "./Exercise/SetupModifier";
-import SetupExercise from "./Exercise/SetupExercise";
+import Modifiers from "./Workout/Modifiers";
+import SetupWorkout from "./Workout/SetupWorkout";
+import SetupModifier from "./Workout/SetupModifier";
+import SetupExercise from "./Workout/SetupExercise";
 import { Outlet } from "react-router-dom";
 
 export default function App() {
@@ -45,18 +45,18 @@ export default function App() {
             }
           />
           <Route
-            path="/courses/:course/:exercise"
+            path="/courses/:course/:workout"
             element={
               <RequireAuth>
-                <SetupExercise />
+                <SetupWorkout />
                 <Outlet />
               </RequireAuth>
             }
           >
-            <Route path=":set/:ex" element={<SetupSet />} />
-            <Route path=":set/:ex/modifiers" element={<Modifiers />} />
+            <Route path=":set/:exercise" element={<SetupExercise />} />
+            <Route path=":set/:exercise/modifiers" element={<Modifiers />} />
             <Route
-              path=":set/:ex/modifiers/:modifier"
+              path=":set/:exercise/modifiers/:modifier"
               element={<SetupModifier />}
             />
           </Route>

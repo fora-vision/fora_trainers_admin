@@ -7,11 +7,9 @@ import { ReactComponent as IconCopy } from "../components/icons/copy.svg";
 import store from "../store";
 
 import Card from "../components/Card";
-import { H1 } from "../components/typographic";
-import { ActionButton, PureButton } from "../components/button";
-import { Container } from "../components/layout";
-import { formatDate } from "../components/date";
-
+import { H1, P } from "../components/typographic";
+import { ActionButton, PureButton, StrokeButton } from "../components/button";
+import { Container, SpaceBetween } from "../components/layout";
 import * as S from "./styled";
 
 const Course = () => {
@@ -23,30 +21,42 @@ const Course = () => {
   return (
     <Container>
       <S.Header>
-        <H1>Курс «{course.title}»</H1>
-        <Link to={`/courses/${course.id}/create`}>
-          <ActionButton>Создать тренировку</ActionButton>
-        </Link>
+        <H1>Курс «{course.name}»</H1>
+
+        <SpaceBetween>
+          <Link to={`/courses/${course.id}/create`}>
+            <StrokeButton>Опубликовать</StrokeButton>
+          </Link>
+          <Link style={{ marginLeft: 16 }} to={`/courses/${course.id}/create`}>
+            <ActionButton>Создать тренировку</ActionButton>
+          </Link>
+        </SpaceBetween>
       </S.Header>
 
       <div>
-        {course.exercises.map((exercise, i) => (
+        {course.workouts.map((workout, i) => (
           <Card
             number={i}
-            title={exercise.title}
-            properties={[
-              { label: "Пол", value: exercise.sex },
-              { label: "Дата создания", value: formatDate(exercise.created) },
-              { label: "Кол-во сетов", value: exercise.sets.length },
-            ]}
-            onClick={() => navigate(`/courses/${course.id}/${exercise.id}`)}
+            title={workout.name}
+            properties={[{ label: "Кол-во сетов", value: workout.sets.length }]}
+            onClick={() => navigate(`/courses/${course.id}/${i}`)}
             actions={
               <div style={{ display: "flex" }}>
-                <PureButton>
+                <PureButton onClick={() => course.runClassroom(i)}>
+                  <P>Запустить</P>
+                </PureButton>
+
+                <PureButton
+                  style={{ marginLeft: 8 }}
+                  onClick={() => course.cloneWorkout(i)}
+                >
                   <IconCopy />
                 </PureButton>
 
-                <PureButton style={{ marginLeft: 8 }}>
+                <PureButton
+                  style={{ marginLeft: 8 }}
+                  onClick={() => course.removeWorkout(i)}
+                >
                   <IconTrash />
                 </PureButton>
               </div>

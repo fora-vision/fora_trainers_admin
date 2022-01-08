@@ -29,7 +29,7 @@ const SelectWrap = styled.div`
     color: #65656d;
   }
 
-  p {
+  select {
     font-family: Montserrat;
     font-style: normal;
     font-weight: 500;
@@ -46,17 +46,21 @@ const SelectWrap = styled.div`
   }
 `;
 
-function Select({ style, placeholder, value, onChange, items }) {
+const Select = React.forwardRef(({ style, placeholder, items, ...props }, ref) => {  
   return (
     <SelectWrap style={style}>
       <span>{placeholder}</span>
-      <p>{value}</p>
+      <select ref={ref} {...props}>
+        {items.map((item) => (
+          <option key={item.value} value={item.value}>{item.label}</option>
+        ))}
+      </select>
 
       <PureButton>
         <IconArrow />
       </PureButton>
     </SelectWrap>
   );
-}
+});
 
 export default Select;

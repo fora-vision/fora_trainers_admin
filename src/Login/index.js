@@ -1,14 +1,17 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
 import { H1, PSmall } from "../components/typographic";
-import { Container, VSpace } from "../components/layout";
+import { VSpace } from "../components/layout";
 import { ActionButton } from "../components/button";
 import { Input } from "../components/input";
 import store from "../store/index";
-import { CenterBox } from "./styled";
+import { LoginForm } from "./styled";
 import { Navigate } from "react-router";
 
 const Login = () => {
+  const { register, handleSubmit, formState } = useForm({ mode: "onChange" });
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,23 +20,34 @@ const Login = () => {
   }
 
   let from = location.state?.from?.pathname || "/";
-  const login = async () => {
-    await store.login();
+  const login = async ({ login, password }) => {
+    await store.login(login, password);
     navigate(from, { replace: true });
   };
 
   return (
-    <CenterBox>
+    <LoginForm onSubmit={handleSubmit(login)}>
       <H1>Вход</H1>
       <VSpace s={56} />
 
-      <Input placeholder="Email" />
+      <Input
+        placeholder="Email"
+        autoComplete="username"
+        {...register("login", { required: true })}
+      />
       <VSpace s={16} />
 
-      <Input placeholder="Пароль" />
+      <Input
+        type="password"
+        placeholder="Пароль"
+        autoComplete="current-password"
+        {...register("password", { required: true })}
+      />
       <VSpace s={32} />
 
-      <ActionButton onClick={login}>Войти</ActionButton>
+      <ActionButton disabled={!formState.isValid} type="submit">
+        Войти
+      </ActionButton>
       <VSpace s={24} />
 
       <PSmall style={{ textAlign: "center", color: "#65656D" }}>
@@ -41,7 +55,7 @@ const Login = () => {
         <br />
         Напишите нам: help@fora.vision
       </PSmall>
-    </CenterBox>
+    </LoginForm>
   );
 };
 
