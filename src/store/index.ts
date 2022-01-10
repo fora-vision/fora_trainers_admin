@@ -56,8 +56,8 @@ class ForaStore {
     await api.updateCourse(model.id, course);
   }
 
-  getCourse(course: number) {
-    return this.courses.find((item) => item.id == course);
+  getCourse(course: number): CourseModel | null {
+    return this.courses.find((item) => item.id == course) ?? null
   }
 
   getWorkout(course: number, workout: number | "create"): WorkoutModel | null {
@@ -67,6 +67,9 @@ class ForaStore {
   }
 
   async removeCourse(id: number) {
+    const isConfirm = window.confirm("Вы уверены, что хотите удалить курс?")
+    if (!isConfirm) return;
+
     this.courses = this.courses.filter((item) => item.id !== id);
     await api.deleteCourse(id);
   }

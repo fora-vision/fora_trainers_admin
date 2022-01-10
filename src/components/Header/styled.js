@@ -50,4 +50,5 @@ export const Navigation = styled.div`
     margin: auto;
     width: 1200px;
     box-sizing: border-box;
+    background: #fff;
 `

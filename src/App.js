@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import Login from "./Login";
 import Course from "./Course";
@@ -13,7 +14,7 @@ import Modifiers from "./Workout/Modifiers";
 import SetupWorkout from "./Workout/SetupWorkout";
 import SetupModifier from "./Workout/SetupModifier";
 import SetupExercise from "./Workout/SetupExercise";
-import { Outlet } from "react-router-dom";
+import PublishCourse from "./Course/Publish";
 
 export default function App() {
   return (
@@ -33,7 +34,7 @@ export default function App() {
               </RequireAuth>
             }
           >
-            <Route path="/courses/create" element={<CreateCourse />} />
+            <Route path="create" element={<CreateCourse />} />
           </Route>
 
           <Route
@@ -41,9 +42,13 @@ export default function App() {
             element={
               <RequireAuth>
                 <Course />
+                <Outlet />
               </RequireAuth>
             }
-          />
+          >
+            <Route path="publish" element={<PublishCourse />} />
+          </Route>
+          
           <Route
             path="/courses/:course/:workout"
             element={

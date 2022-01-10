@@ -23,14 +23,24 @@ const Course = () => {
       <S.Header>
         <H1>Курс «{course.name}»</H1>
 
-        <SpaceBetween>
-          <Link to={`/courses/${course.id}/create`}>
-            <StrokeButton disabled>Опубликовать</StrokeButton>
-          </Link>
-          <Link style={{ marginLeft: 16 }} to={`/courses/${course.id}/create`}>
-            <ActionButton>Создать тренировку</ActionButton>
-          </Link>
-        </SpaceBetween>
+        {course.isEditable ? (
+          <SpaceBetween>
+            <Link to={`/courses/${course.id}/publish`}>
+              <StrokeButton>Опубликовать</StrokeButton>
+            </Link>
+            <Link
+              style={{ marginLeft: 16 }}
+              to={`/courses/${course.id}/create`}
+            >
+              <ActionButton>Создать тренировку</ActionButton>
+            </Link>
+          </SpaceBetween>
+        ) : (
+          <StrokeButton style={{ userSelect: "all" }}>
+            <span style={{ userSelect: "none", marginRight: 4 }}>Инвайт-код:</span>
+            {course.inviteCode}
+          </StrokeButton>
+        )}
       </S.Header>
 
       <div>
@@ -38,7 +48,10 @@ const Course = () => {
           <Card
             number={i}
             title={workout.name || "Не указано"}
-            properties={[{ label: "Кол-во сетов", value: workout.sets.length }]}
+            properties={[
+              { label: "Кол-во выполнений", value: 0 },
+              { label: "Кол-во сетов", value: workout.sets.length },
+            ]}
             onClick={() => navigate(`/courses/${course.id}/${i}`)}
             actions={
               <div style={{ display: "flex" }}>
@@ -46,19 +59,22 @@ const Course = () => {
                   <P>Запустить</P>
                 </PureButton>
 
-                <PureButton
-                  style={{ marginLeft: 8 }}
-                  onClick={() => course.cloneWorkout(i)}
-                >
-                  <IconCopy />
-                </PureButton>
-
-                <PureButton
-                  style={{ marginLeft: 8 }}
-                  onClick={() => course.removeWorkout(i)}
-                >
-                  <IconTrash />
-                </PureButton>
+                {course.isEditable && (
+                  <>
+                    <PureButton
+                      style={{ marginLeft: 8 }}
+                      onClick={() => course.cloneWorkout(i)}
+                    >
+                      <IconCopy />
+                    </PureButton>
+                    <PureButton
+                      style={{ marginLeft: 8 }}
+                      onClick={() => course.removeWorkout(i)}
+                    >
+                      <IconTrash />
+                    </PureButton>
+                  </>
+                )}
               </div>
             }
           ></Card>

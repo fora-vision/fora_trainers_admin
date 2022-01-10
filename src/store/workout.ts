@@ -61,10 +61,15 @@ class WorkoutModel {
   }
 
   removeSet(set: number) {
+    const isConfirm = window.confirm("Вы уверены, что хотите удалить сет?")
+    if (!isConfirm) return;
     this.sets.splice(set, 1);
   }
 
   removeExercise(set: number, exercise: number) {
+    const isConfirm = window.confirm("Вы уверены, что хотите удалить упражнение?")
+    if (!isConfirm) return;
+    
     this.sets[set].exercises.splice(exercise, 1);
   }
 

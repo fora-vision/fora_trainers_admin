@@ -32,13 +32,15 @@ const SetupWorkout = () => {
     return <Navigate to={backPath} />;
   }
 
+  const title = workout.isDraft
+    ? "Создать тренировку"
+    : "Редактировать тренировку";
+
   return (
     <Container>
       <VSpace s={56} />
 
-      <H1>
-        {workout.isDraft ? "Создать тренировку" : "Редактировать тренировку"}
-      </H1>
+      <H1>{course.isEditable ? title : "Посмотреть тренировку"}</H1>
       <VSpace s={40} />
 
       <H2>Общая информация</H2>
@@ -48,6 +50,7 @@ const SetupWorkout = () => {
         style={{ width: 448 }}
         placeholder="Название тренировки"
         onChange={(e) => workout.setName(e.target.value)}
+        disabled={course.isEditable === false}
         value={workout.name}
       />
       <VSpace s={40} />
@@ -60,18 +63,21 @@ const SetupWorkout = () => {
           <SpaceBetween>
             <SpaceBetween>
               <H3>СЕТ {setIndex + 1}</H3>
-              <PureButton
-                style={{ marginLeft: 16 }}
-                onClick={() => workout.removeSet(setIndex)}
-              >
-                <IconTrash />
-              </PureButton>
+              {course.isEditable && (
+                <PureButton
+                  style={{ marginLeft: 16 }}
+                  onClick={() => workout.removeSet(setIndex)}
+                >
+                  <IconTrash />
+                </PureButton>
+              )}
             </SpaceBetween>
 
             <SpaceBetween>
               <PSmall>Количество повторов сета:</PSmall>
               <S.RepeatsSelect
                 value={set.repeats}
+                disabled={course.isEditable === false}
                 items={[
                   { value: "1", label: "1" },
                   { value: "2", label: "2" },
@@ -99,7 +105,8 @@ const SetupWorkout = () => {
               <P>{store.getExerciseName(ex.label)}</P>
               <P>{ex.getExecuteValue()}</P>
               <P>{ex.modificators.length} модификатора</P>
-              <div style={{ display: "flex" }}>
+
+              <div style={{ display: course.isEditable ? "flex" : "none" }}>
                 <Link to={`${pathname}/${setIndex}/${exIndex}`}>
                   <PureButton>
                     <IconEdit />
@@ -116,25 +123,30 @@ const SetupWorkout = () => {
             </S.Row>
           ))}
 
-          <Link to={`${pathname}/${setIndex}/create`}>
-            <StrokeButton style={{ height: 40 }}>
-              + Добавить упражнение
-            </StrokeButton>
-          </Link>
+          {course.isEditable && (
+            <Link to={`${pathname}/${setIndex}/create`}>
+              <StrokeButton style={{ height: 40 }}>
+                + Добавить упражнение
+              </StrokeButton>
+            </Link>
+          )}
         </S.SetCard>
       ))}
 
-      <StrokeButton
-        style={{ width: 904, height: 80 }}
-        onClick={() => workout.addSet()}
-      >
-        + Добавить сет
-      </StrokeButton>
-      <VSpace s={40} />
-
-      <ActionButton style={{ width: 343 }} onClick={saveWorkout}>
-        {workout.isDraft ? "Создать тренировку" : "Сохранить изменения"}
-      </ActionButton>
+      {course.isEditable && (
+        <>
+          <StrokeButton
+            style={{ width: 904, height: 80 }}
+            onClick={() => workout.addSet()}
+          >
+            + Добавить сет
+          </StrokeButton>
+          <VSpace s={40} />
+          <ActionButton style={{ width: 343 }} onClick={saveWorkout}>
+            {workout.isDraft ? "Создать тренировку" : "Сохранить изменения"}
+          </ActionButton>
+        </>
+      )}
     </Container>
   );
 };

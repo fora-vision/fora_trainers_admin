@@ -11,12 +11,13 @@ import { H1 } from "../components/typographic";
 import Card from "../components/Card";
 import store from "../store";
 import * as S from "./styled";
+import { formatDate } from "../components/date";
 
 const Courses = () => {
   const navigate = useNavigate();
   useEffect(() => {
     void store.loadCourses();
-  }, [])
+  }, []);
 
   return (
     <Container>
@@ -35,6 +36,13 @@ const Courses = () => {
             title={course.name}
             properties={[
               { label: "Кол-во тренировок", value: course.workouts.length },
+              { label: "Кол-во участников", value: 0 },
+              {
+                label: "Дедлайн",
+                value: course.deadline && !course.isEditable
+                  ? formatDate(course.deadline)
+                  : "Не опубликован",
+              },
             ]}
             onClick={() => navigate(`/courses/${course.id}`)}
             actions={
@@ -43,12 +51,14 @@ const Courses = () => {
                   <IconCopy />
                 </PureButton>
 
-                <PureButton
-                  style={{ marginLeft: 8 }}
-                  onClick={() => store.removeCourse(course.id)}
-                >
-                  <IconTrash />
-                </PureButton>
+                {course.isEditable && (
+                  <PureButton
+                    style={{ marginLeft: 8 }}
+                    onClick={() => store.removeCourse(course.id)}
+                  >
+                    <IconTrash />
+                  </PureButton>
+                )}
               </div>
             }
           ></Card>
@@ -58,4 +68,4 @@ const Courses = () => {
   );
 };
 
-export default observer(Courses)
+export default observer(Courses);

@@ -1,31 +1,55 @@
-import { action, makeObservable, observable, toJS } from "mobx";
-import api from "./api";
-import { CourseDTO, WorkoutDTO } from "./models";
+import { action, computed, makeObservable, observable, runInAction, toJS } from "mobx";
+import { CourseDTO } from "./models";
 import WorkoutModel from "./workout";
+import api from "./api";
 
 class CourseModel {
   id: number;
   name: string;
   description: string;
-  deadline?: number;
   workouts: WorkoutModel[] = [];
   draftWorkout = new WorkoutModel();
+
+  inviteCode?: string;
+  deadline?: number;
 
   constructor(dto: CourseDTO) {
     makeObservable(this, {
       name: observable,
+      description: observable,
       workouts: observable,
+      inviteCode: observable,
       removeWorkout: action,
       cloneWorkout: action,
       saveDraftWorkout: action,
+      publicate: action,
+
+      isEditable: computed
     });
 
     this.id = dto.id;
     this.name = dto.name;
     this.description = dto.description;
-    this.deadline = dto.deadline;
+    this.deadline = (dto.deadline ?? 0) * 1000;
+    this.inviteCode = dto.invite_code;
     this.workouts =
       dto.program?.workouts.map((wrk) => new WorkoutModel(wrk)) ?? [];
+  }
+
+  get isEditable() {
+    return this.inviteCode == null
+  }
+
+  get path() {
+    return `/courses/${this.id}`
+  }
+
+  async publicate(deadline: number) {
+    const inviteCode = await api.publicateCourse(this.id, deadline);
+    runInAction(() => {
+      this.inviteCode = inviteCode;
+      this.deadline = deadline;
+    });
   }
 
   async runClassroom(workout: number) {
@@ -34,6 +58,9 @@ class CourseModel {
   }
 
   async removeWorkout(id: number) {
+    const isConfirm = window.confirm("Вы уверены, что хотите удалить тренировку?")
+    if (!isConfirm) return;
+    
     this.workouts.splice(id, 1);
     await this.save();
   }
@@ -65,7 +92,7 @@ class CourseModel {
       program: { workouts },
       name: toJS(this.name),
       description: toJS(this.description),
-      deadline: toJS(this.deadline),
+      deadline: toJS(this.deadline ?? 0) / 1000,
     };
   }
 }

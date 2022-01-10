@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import {  Navigate, useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 import {
   ActionButton,
   Group,
   GroupButton,
-  PureButton,
 } from "../components/button";
 import { P, PBold } from "../components/typographic";
-import { SpaceBetween, VSpace } from "../components/layout";
+import { VSpace } from "../components/layout";
 import Modal from "../components/Modal";
 import Select from "../components/select";
 import store from "../store";
@@ -18,6 +17,7 @@ function SetupExercise() {
   const params = useParams();
   const navigate = useNavigate();
 
+  const course = store.getCourse(params.course);
   const workout = store.getWorkout(params.course, params.workout);
   const exercise = workout?.getExercise(params.set, params.exercise);
   const backPath = `/courses/${params.course}/${params.workout}`;
@@ -27,7 +27,7 @@ function SetupExercise() {
     navigate(backPath, { replace: true });
   };
 
-  if (exercise == null) {
+  if (course.isEditable === false || exercise == null) {
     return <Navigate to={backPath} replace />;
   }
 
