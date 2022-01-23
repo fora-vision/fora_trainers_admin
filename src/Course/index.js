@@ -1,51 +1,60 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
-import { useParams, Navigate, Link, useNavigate } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 
 import { ReactComponent as IconTrash } from "../components/icons/trash.svg";
 import { ReactComponent as IconCopy } from "../components/icons/copy.svg";
-import store from "../store";
 
 import Card from "../components/Card";
 import { H1, P } from "../components/typographic";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { ActionButton, PureButton, StrokeButton } from "../components/button";
 import { Container, SpaceBetween } from "../components/layout";
 import * as S from "./styled";
+import useBreadcrumbs from "../components/useBreadcrumbs";
 
 const Course = () => {
-  const params = useParams();
+  const { isLoading, course } = useBreadcrumbs();
   const navigate = useNavigate();
-  const course = store.getCourse(params.course);
+
+  if (isLoading) return null;
   if (!course) return <Navigate to="/courses" />;
 
   return (
     <Container>
       <S.Header>
-        <H1>Курс «{course.name}»</H1>
+        <div>
+          <Breadcrumbs>
+            <Link to="/courses">Курсы тренировок</Link>
+          </Breadcrumbs>
+          <H1>Курс «{course.name}»</H1>
+        </div>
 
         {course.isEditable ? (
           <SpaceBetween>
             <Link to={`/courses/${course.id}/publish`}>
               <StrokeButton>Опубликовать</StrokeButton>
             </Link>
-            <Link
-              style={{ marginLeft: 16 }}
-              to={`/courses/${course.id}/create`}
-            >
+            <Link style={{ marginLeft: 16 }} to={`/courses/${course.id}/create`}>
               <ActionButton>Создать тренировку</ActionButton>
             </Link>
           </SpaceBetween>
         ) : (
-          <StrokeButton style={{ userSelect: "all" }}>
-            <span style={{ userSelect: "none", marginRight: 4 }}>Инвайт-код:</span>
-            {course.inviteCode}
-          </StrokeButton>
+          <SpaceBetween>
+            <Link to={`/courses/${course.id}/users`}>
+              <StrokeButton>Пользователи ({course.usersCount})</StrokeButton>
+            </Link>
+            <StrokeButton as="div" style={{ marginLeft: 16, width: "fit-content" }}>
+              Инвайт-код: {course.inviteCode}
+            </StrokeButton>
+          </SpaceBetween>
         )}
       </S.Header>
 
       <div>
         {course.workouts.map((workout, i) => (
           <Card
+            key={i}
             number={i}
             title={workout.name || "Не указано"}
             properties={[
@@ -61,23 +70,17 @@ const Course = () => {
 
                 {course.isEditable && (
                   <>
-                    <PureButton
-                      style={{ marginLeft: 8 }}
-                      onClick={() => course.cloneWorkout(i)}
-                    >
+                    <PureButton style={{ marginLeft: 8 }} onClick={() => course.cloneWorkout(i)}>
                       <IconCopy />
                     </PureButton>
-                    <PureButton
-                      style={{ marginLeft: 8 }}
-                      onClick={() => course.removeWorkout(i)}
-                    >
+                    <PureButton style={{ marginLeft: 8 }} onClick={() => course.removeWorkout(i)}>
                       <IconTrash />
                     </PureButton>
                   </>
                 )}
               </div>
             }
-          ></Card>
+          />
         ))}
       </div>
     </Container>

@@ -5,13 +5,13 @@ import { observer } from "mobx-react-lite";
 import { ReactComponent as IconTrash } from "../components/icons/trash.svg";
 import { ReactComponent as IconCopy } from "../components/icons/copy.svg";
 
+import { formatDate } from "../components/date";
 import { ActionButton, PureButton } from "../components/button";
 import { Container } from "../components/layout";
 import { H1 } from "../components/typographic";
 import Card from "../components/Card";
 import store from "../store";
 import * as S from "./styled";
-import { formatDate } from "../components/date";
 
 const Courses = () => {
   const navigate = useNavigate();
@@ -36,12 +36,10 @@ const Courses = () => {
             title={course.name}
             properties={[
               { label: "Кол-во тренировок", value: course.workouts.length },
-              { label: "Кол-во участников", value: 0 },
+              { label: "Кол-во участников", value: course.usersCount },
               {
                 label: "Дедлайн",
-                value: course.deadline && !course.isEditable
-                  ? formatDate(course.deadline)
-                  : "Не опубликован",
+                value: course.deadline && !course.isEditable ? formatDate(course.deadline) : "Не опубликован",
               },
             ]}
             onClick={() => navigate(`/courses/${course.id}`)}
@@ -52,16 +50,13 @@ const Courses = () => {
                 </PureButton>
 
                 {course.isEditable && (
-                  <PureButton
-                    style={{ marginLeft: 8 }}
-                    onClick={() => store.removeCourse(course.id)}
-                  >
+                  <PureButton style={{ marginLeft: 8 }} onClick={() => store.removeCourse(course.id)}>
                     <IconTrash />
                   </PureButton>
                 )}
               </div>
             }
-          ></Card>
+          />
         ))}
       </div>
     </Container>

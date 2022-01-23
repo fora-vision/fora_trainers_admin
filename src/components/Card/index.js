@@ -23,13 +23,12 @@ function Card({ onClick, number, title, properties, actions }) {
           </S.Column>
         ))}
 
-        <S.Column
-          style={{ width: 104, alignItems: "flex-end" }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <PSmall>Действия</PSmall>
-          {actions}
-        </S.Column>
+        {actions && (
+          <S.Column style={{ width: 104, alignItems: "flex-end" }} onClick={(e) => e.stopPropagation()}>
+            <PSmall>Действия</PSmall>
+            {actions}
+          </S.Column>
+        )}
       </S.AdditionColumn>
     </S.Card>
   );

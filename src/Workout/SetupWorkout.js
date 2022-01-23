@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import { observer } from "mobx-react-lite";
 
 import { ReactComponent as IconTrash } from "../components/icons/trash.svg";
 import { ReactComponent as IconEdit } from "../components/icons/edit.svg";
 
+import useBreadcrumbs from "../components/useBreadcrumbs";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { ActionButton, PureButton, StrokeButton } from "../components/button";
 import { Container, SpaceBetween, VSpace } from "../components/layout";
 import { H1, H2, H3, P, PSmall } from "../components/typographic";
@@ -15,30 +15,29 @@ import store from "../store";
 import * as S from "./styled";
 
 const SetupWorkout = () => {
-  const params = useParams();
-  const navigate = useNavigate();
+  const { isLoading, course, workout } = useBreadcrumbs();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
-  const backPath = `/courses/${params.course}`;
-  const course = store.getCourse(params.course);
-  const workout = store.getWorkout(params.course, params.workout);
+  if (isLoading) return null;
+  if (!course) return <Navigate to="/courses" replace />;
+  if (!workout) return <Navigate to={course.path} replace />;
+
+  const title = workout.isDraft ? "Создать тренировку" : "Редактировать тренировку";
   const saveWorkout = async () => {
     if (workout.isDraft) await course.saveDraftWorkout();
     else await course.save();
-    navigate(backPath);
+    navigate(course.path, { replace: true });
   };
-
-  if (workout == null) {
-    return <Navigate to={backPath} />;
-  }
-
-  const title = workout.isDraft
-    ? "Создать тренировку"
-    : "Редактировать тренировку";
 
   return (
     <Container>
       <VSpace s={56} />
+
+      <Breadcrumbs>
+        <Link to="/courses">Курсы тренировок</Link>
+        <Link to={course.path}>{course.name}</Link>
+      </Breadcrumbs>
 
       <H1>{course.isEditable ? title : "Посмотреть тренировку"}</H1>
       <VSpace s={40} />
@@ -59,15 +58,12 @@ const SetupWorkout = () => {
       <VSpace s={24} />
 
       {workout.sets.map((set, setIndex) => (
-        <S.SetCard>
+        <S.SetCard key={setIndex}>
           <SpaceBetween>
             <SpaceBetween>
               <H3>СЕТ {setIndex + 1}</H3>
               {course.isEditable && (
-                <PureButton
-                  style={{ marginLeft: 16 }}
-                  onClick={() => workout.removeSet(setIndex)}
-                >
+                <PureButton style={{ marginLeft: 16 }} onClick={() => workout.removeSet(setIndex)}>
                   <IconTrash />
                 </PureButton>
               )}
@@ -85,9 +81,7 @@ const SetupWorkout = () => {
                   { value: "4", label: "4" },
                   { value: "5", label: "5" },
                 ]}
-                onChange={(e) =>
-                  workout.changeSetRepeats(setIndex, e.target.value)
-                }
+                onChange={(e) => workout.changeSetRepeats(setIndex, e.target.value)}
               />
             </SpaceBetween>
           </SpaceBetween>
@@ -97,26 +91,34 @@ const SetupWorkout = () => {
             <PSmall>Упражнение</PSmall>
             <PSmall>Количество повторов/минут</PSmall>
             <PSmall>Модификаторы</PSmall>
-            <PSmall>Действия</PSmall>
+            {course.isEditable && <PSmall>Действия</PSmall>}
           </S.HeaderRow>
 
           {set.exercises.map((ex, exIndex) => (
-            <S.Row>
+            <S.Row key={exIndex}>
               <P>{store.getExerciseName(ex.label)}</P>
               <P>{ex.getExecuteValue()}</P>
-              <P>{ex.modificators.length} модификатора</P>
 
-              <div style={{ display: course.isEditable ? "flex" : "none" }}>
+              {course.isEditable ? (
+                <Link to={`${pathname}/${setIndex}/${exIndex}/modifiers`}>
+                  <PureButton>
+                    <P style={{ color: "#7933D2" }}>
+                      {ex.modificators.length ? `${ex.modificators.length} модификатора` : "Добавить модификатор"}
+                    </P>
+                  </PureButton>
+                </Link>
+              ) : (
+                <P>-</P>
+              )}
+
+              <div style={{ display: course.isEditable ? "flex" : "none", alignItems: "center" }}>
                 <Link to={`${pathname}/${setIndex}/${exIndex}`}>
                   <PureButton>
                     <IconEdit />
                   </PureButton>
                 </Link>
 
-                <PureButton
-                  style={{ marginLeft: 16 }}
-                  onClick={() => workout.removeExercise(setIndex, exIndex)}
-                >
+                <PureButton style={{ marginLeft: 16 }} onClick={() => workout.removeExercise(setIndex, exIndex)}>
                   <IconTrash />
                 </PureButton>
               </div>
@@ -125,9 +127,7 @@ const SetupWorkout = () => {
 
           {course.isEditable && (
             <Link to={`${pathname}/${setIndex}/create`}>
-              <StrokeButton style={{ height: 40 }}>
-                + Добавить упражнение
-              </StrokeButton>
+              <StrokeButton style={{ height: 40 }}>+ Добавить упражнение</StrokeButton>
             </Link>
           )}
         </S.SetCard>
@@ -135,10 +135,7 @@ const SetupWorkout = () => {
 
       {course.isEditable && (
         <>
-          <StrokeButton
-            style={{ width: 904, height: 80 }}
-            onClick={() => workout.addSet()}
-          >
+          <StrokeButton style={{ width: 904, height: 80 }} onClick={() => workout.addSet()}>
             + Добавить сет
           </StrokeButton>
           <VSpace s={40} />

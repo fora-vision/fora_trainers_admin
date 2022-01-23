@@ -25,7 +25,7 @@ function Header() {
         <Link to="/" style={{ height: 40 }}>
           <S.Logo src={logoImage} />
         </Link>
-        <S.HeaderButton to="/courses" isSelected={pathname.includes("course")}>
+        <S.HeaderButton to="/courses" $selected={pathname.includes("course")}>
           <P>Курсы тренировок</P>
         </S.HeaderButton>
         <PureButton style={{ marginLeft: "auto" }} onClick={logout}>

@@ -85,7 +85,7 @@ const Select = ({ style, className, placeholder, items, ...props }) => {
       </select>
 
       <PureButton>
-        <IconArrow />
+        <IconArrow style={{ opacity: props.disabled ? 0.2 : 1 }} />
       </PureButton>
     </SelectWrap>
   );

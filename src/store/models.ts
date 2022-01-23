@@ -5,6 +5,7 @@ export interface CourseDTO {
   publish: boolean;
   deadline?: number;
   invite_code?: string;
+  users_count: number;
   program?: { workouts: WorkoutDTO[] };
 }
 
@@ -17,6 +18,21 @@ export interface ExerciseRuleDTO {
   image_down: string;
   count: 0;
   side: "left";
+}
+
+export interface UserDTO {
+  id: number;
+  name: string;
+  age: number;
+  sex: number;
+  total_time: number;
+  workouts: {
+    name: string;
+    total_time: number;
+    exercises_count: number;
+    timestamp: number;
+    video_url: string;
+  }[];
 }
 
 export interface WorkoutDTO {
@@ -39,10 +55,10 @@ export interface ExerciseDTO {
 
 export interface ModifierDTO {
   type: "SKIP" | "COMPLICATE" | "SIMPLIFY";
-  body_type: "strong" | "normal" | "weak";
+  body_type: null | "strong" | "normal" | "weak";
   value: number;
 
   min_age: number;
   max_age: number;
-  sex: 1 | 2;
+  sex: 1 | 2 | null;
 }

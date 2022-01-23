@@ -1,12 +1,26 @@
-import { action, computed, makeObservable, observable, runInAction, toJS } from "mobx";
-import { CourseDTO } from "./models";
+import { action, computed, makeAutoObservable, makeObservable, observable, runInAction, toJS } from "mobx";
+import { CourseDTO, UserDTO } from "./models";
 import WorkoutModel from "./workout";
 import api from "./api";
+
+class Loadable<T> {
+  value: T | null = null;
+  isLoading = false;
+  isError = false;
+
+  constructor(value: T) {
+    makeAutoObservable(this);
+    this.value = value;
+  }
+}
 
 class CourseModel {
   id: number;
   name: string;
   description: string;
+  usersCount: number;
+  users: UserDTO[] = [];
+
   workouts: WorkoutModel[] = [];
   draftWorkout = new WorkoutModel();
 
@@ -19,12 +33,14 @@ class CourseModel {
       description: observable,
       workouts: observable,
       inviteCode: observable,
+      users: observable,
+
+      loadUsers: action,
       removeWorkout: action,
       cloneWorkout: action,
       saveDraftWorkout: action,
       publicate: action,
-
-      isEditable: computed
+      isEditable: computed,
     });
 
     this.id = dto.id;
@@ -32,16 +48,31 @@ class CourseModel {
     this.description = dto.description;
     this.deadline = (dto.deadline ?? 0) * 1000;
     this.inviteCode = dto.invite_code;
-    this.workouts =
-      dto.program?.workouts.map((wrk) => new WorkoutModel(wrk)) ?? [];
+    this.usersCount = dto.users_count;
+    this.workouts = dto.program?.workouts.map((wrk) => new WorkoutModel(wrk)) ?? [];
   }
 
   get isEditable() {
-    return this.inviteCode == null
+    return this.inviteCode == null;
   }
 
   get path() {
-    return `/courses/${this.id}`
+    return `/courses/${this.id}`;
+  }
+
+  getWorkout(workout: number): WorkoutModel | null {
+    return this.workouts[workout] ?? null;
+  }
+
+  async getUser(id: number | string) {
+    if (this.users.length == 0) await this.loadUsers();
+    return this.users.find((user) => user.id == +id);
+  }
+
+  async loadUsers() {
+    const users = await api.getUsers(this.id);
+    runInAction(() => (this.users = users));
+    return users;
   }
 
   async publicate(deadline: number) {
@@ -58,9 +89,9 @@ class CourseModel {
   }
 
   async removeWorkout(id: number) {
-    const isConfirm = window.confirm("Вы уверены, что хотите удалить тренировку?")
+    const isConfirm = window.confirm("Вы уверены, что хотите удалить тренировку?");
     if (!isConfirm) return;
-    
+
     this.workouts.splice(id, 1);
     await this.save();
   }
@@ -88,7 +119,6 @@ class CourseModel {
     return {
       avatar: "",
       max_users_count: 0,
-
       program: { workouts },
       name: toJS(this.name),
       description: toJS(this.description),

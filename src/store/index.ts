@@ -1,7 +1,6 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
 import CourseModel from "./course";
 import { ExerciseRuleDTO } from "./models";
-import WorkoutModel from "./workout";
 import api from "./api";
 
 class ForaStore {
@@ -27,7 +26,7 @@ class ForaStore {
   }
 
   getExerciseName(id: string) {
-    return this.exercises[id].name
+    return this.exercises[id]?.name ?? `${id} [Deleted]`;
   }
 
   getExercisesList() {
@@ -49,25 +48,20 @@ class ForaStore {
   }
 
   async updateCourse(id: number) {
-    const model = this.getCourse(id);
+    const model = await this.getCourse(id);
     if (!model) return;
 
     const course = model.serialize();
     await api.updateCourse(model.id, course);
   }
 
-  getCourse(course: number): CourseModel | null {
-    return this.courses.find((item) => item.id == course) ?? null
-  }
-
-  getWorkout(course: number, workout: number | "create"): WorkoutModel | null {
-    const model = this.getCourse(course);
-    if (workout === "create") return model?.draftWorkout ?? null;
-    return model?.workouts[workout] ?? null;
+  async getCourse(course: number): Promise<CourseModel | null> {
+    if (!this.courses.length) await this.loadCourses();
+    return this.courses.find((item) => item.id === course) ?? null;
   }
 
   async removeCourse(id: number) {
-    const isConfirm = window.confirm("Вы уверены, что хотите удалить курс?")
+    const isConfirm = window.confirm("Вы уверены, что хотите удалить курс?");
     if (!isConfirm) return;
 
     this.courses = this.courses.filter((item) => item.id !== id);
@@ -79,7 +73,7 @@ class ForaStore {
     const course = this.courses[index].serialize();
     const newCourse = await api.createCourse(course.name, course.description);
     await api.updateCourse(newCourse.id, course);
-    this.courses.splice(index, 0, new CourseModel(course));
+    this.courses.splice(index + 1, 0, new CourseModel(newCourse));
   }
 
   async loadCourses() {
@@ -102,6 +96,7 @@ class ForaStore {
 
   async logout() {
     localStorage.setItem("session", "");
+    this.courses = [];
     this.isLoged = false;
   }
 }

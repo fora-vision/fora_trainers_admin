@@ -1,4 +1,4 @@
-import { CourseDTO, ExerciseRuleDTO, WorkoutDTO } from "./models";
+import { CourseDTO, ExerciseRuleDTO, UserDTO } from "./models";
 
 class ForaApi {
   private session: string = "";
@@ -8,10 +8,7 @@ class ForaApi {
     this.session = session;
   }
 
-  private async fetch<T = any>(
-    input: RequestInfo,
-    init: RequestInit = {}
-  ): Promise<T> {
+  private async fetch<T = any>(input: RequestInfo, init: RequestInit = {}): Promise<T> {
     const auth = { Authorization: this.session };
     const res = await fetch(`${this.endpoint}/${input}`, {
       ...init,
@@ -33,20 +30,15 @@ class ForaApi {
   }
 
   async testWorkout(course: number, workout: number): Promise<string> {
-    const { url } = await this.fetch(
-      `api/v2/console/course/${course}/${workout}/example_workout`
-    );
+    const { url } = await this.fetch(`api/v2/console/course/${course}/${workout}/example_workout`);
     return url;
   }
 
   async publicateCourse(id: number, deadline: number): Promise<string> {
-    const { invite_code } = await this.fetch(
-      `api/v2/console/course/${id}/publish`,
-      {
-        method: "POST",
-        body: JSON.stringify({ deadline }),
-      }
-    );
+    const { invite_code } = await this.fetch(`api/v2/console/course/${id}/publish`, {
+      method: "POST",
+      body: JSON.stringify({ deadline }),
+    });
 
     return invite_code;
   }
@@ -72,6 +64,11 @@ class ForaApi {
   async getCourses(): Promise<CourseDTO[]> {
     const { courses } = await this.fetch("api/v2/console/course");
     return courses;
+  }
+
+  async getUsers(id: number): Promise<UserDTO[]> {
+    const { users } = await this.fetch(`api/v2/console/users?course_id=${id}`);
+    return users;
   }
 
   async login(login: string, password: string) {

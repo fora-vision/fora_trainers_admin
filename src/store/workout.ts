@@ -1,6 +1,7 @@
 import { action, makeObservable, observable, toJS } from "mobx";
 import { WorkoutDTO } from "./models";
 import ExerciseModel from "./exercise";
+import CourseModel from "./course";
 
 class WorkoutModel {
   name: string;
@@ -38,9 +39,7 @@ class WorkoutModel {
       })) ?? [];
   }
 
-  getExercise(set: number, exercise: number | "create"): ExerciseModel | null {
-    console.log(this);
-    if (exercise === "create") return this?.draftExercise ?? null;
+  getExercise(set: number, exercise: number): ExerciseModel | null {
     return this?.sets[set]?.exercises[exercise] ?? null;
   }
 
@@ -61,15 +60,15 @@ class WorkoutModel {
   }
 
   removeSet(set: number) {
-    const isConfirm = window.confirm("Вы уверены, что хотите удалить сет?")
+    const isConfirm = window.confirm("Вы уверены, что хотите удалить сет?");
     if (!isConfirm) return;
     this.sets.splice(set, 1);
   }
 
   removeExercise(set: number, exercise: number) {
-    const isConfirm = window.confirm("Вы уверены, что хотите удалить упражнение?")
+    const isConfirm = window.confirm("Вы уверены, что хотите удалить упражнение?");
     if (!isConfirm) return;
-    
+
     this.sets[set].exercises.splice(exercise, 1);
   }
 
