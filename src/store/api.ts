@@ -34,10 +34,10 @@ class ForaApi {
     return url;
   }
 
-  async publicateCourse(id: number, deadline: number): Promise<string> {
+  async publicateCourse(id: number, deadline: number, save_photos: boolean): Promise<string> {
     const { invite_code } = await this.fetch(`api/v2/console/course/${id}/publish`, {
       method: "POST",
-      body: JSON.stringify({ deadline }),
+      body: JSON.stringify({ deadline, save_photos }),
     });
 
     return invite_code;

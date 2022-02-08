@@ -6,6 +6,7 @@ export interface CourseDTO {
   deadline?: number;
   invite_code?: string;
   users_count: number;
+  save_photos: boolean;
   program?: { workouts: WorkoutDTO[] };
 }
 

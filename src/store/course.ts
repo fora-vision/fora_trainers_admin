@@ -1,18 +1,7 @@
-import { action, computed, makeAutoObservable, makeObservable, observable, runInAction, toJS } from "mobx";
+import { action, computed, makeObservable, observable, runInAction, toJS } from "mobx";
 import { CourseDTO, UserDTO } from "./models";
 import WorkoutModel from "./workout";
 import api from "./api";
-
-class Loadable<T> {
-  value: T | null = null;
-  isLoading = false;
-  isError = false;
-
-  constructor(value: T) {
-    makeAutoObservable(this);
-    this.value = value;
-  }
-}
 
 class CourseModel {
   id: number;
@@ -20,6 +9,7 @@ class CourseModel {
   description: string;
   usersCount: number;
   users: UserDTO[] = [];
+  savePhotos: boolean;
 
   workouts: WorkoutModel[] = [];
   draftWorkout = new WorkoutModel();
@@ -34,6 +24,7 @@ class CourseModel {
       workouts: observable,
       inviteCode: observable,
       users: observable,
+      savePhotos: observable,
 
       loadUsers: action,
       removeWorkout: action,
@@ -49,6 +40,7 @@ class CourseModel {
     this.deadline = (dto.deadline ?? 0) * 1000;
     this.inviteCode = dto.invite_code;
     this.usersCount = dto.users_count;
+    this.savePhotos = dto.save_photos;
     this.workouts = dto.program?.workouts.map((wrk) => new WorkoutModel(wrk)) ?? [];
   }
 
@@ -75,8 +67,8 @@ class CourseModel {
     return users;
   }
 
-  async publicate(deadline: number) {
-    const inviteCode = await api.publicateCourse(this.id, deadline);
+  async publicate(deadline: number, savePhoto: boolean) {
+    const inviteCode = await api.publicateCourse(this.id, deadline, savePhoto);
     runInAction(() => {
       this.inviteCode = inviteCode;
       this.deadline = deadline;
@@ -107,6 +99,12 @@ class CourseModel {
     const dto = this.draftWorkout.serialize();
     this.workouts.push(new WorkoutModel(dto));
     this.draftWorkout = new WorkoutModel();
+    await this.save();
+  }
+
+  async updateCourse(name: string, description: string) {
+    this.name = name
+    this.description = description
     await this.save();
   }
 
