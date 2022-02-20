@@ -4,6 +4,7 @@ import { Navigate, Link, useNavigate } from "react-router-dom";
 
 import { ReactComponent as IconTrash } from "../components/icons/trash.svg";
 import { ReactComponent as IconCopy } from "../components/icons/copy.svg";
+import { ReactComponent as IconEdit } from "../components/icons/edit.svg";
 
 import Card from "../components/Card";
 import { H1, P } from "../components/typographic";
@@ -27,16 +28,25 @@ const Course = () => {
           <Breadcrumbs>
             <Link to="/courses">Курсы тренировок</Link>
           </Breadcrumbs>
-          <H1>Курс «{course.name}»</H1>
+          <H1 style={{ marginRight: 32 }}>
+            Курс «{course.name}»
+          </H1>
         </div>
 
         {course.isEditable ? (
           <SpaceBetween>
+            {course.isEditable && (
+              <Link to={`/courses/${course.id}/rename`}>
+                <StrokeButton style={{ width: 55, marginRight: 16 }}>
+                  <IconEdit />
+                </StrokeButton>
+              </Link>
+            )}
             <Link to={`/courses/${course.id}/publish`}>
-              <StrokeButton>Опубликовать</StrokeButton>
+              <StrokeButton style={{ width: 160 }}>Опубликовать</StrokeButton>
             </Link>
             <Link style={{ marginLeft: 16 }} to={`/courses/${course.id}/create`}>
-              <ActionButton>Создать тренировку</ActionButton>
+              <ActionButton style={{ width: 220 }}>Создать тренировку</ActionButton>
             </Link>
           </SpaceBetween>
         ) : (

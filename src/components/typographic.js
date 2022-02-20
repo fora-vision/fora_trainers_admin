@@ -10,7 +10,7 @@ export const PBold = styled.p`
     letter-spacing: 0em;
     text-align: left;
     margin: 0;
-    
+    word-break: break-all;
     margin-bottom: ${p => P.mb || 0};
 `
 
@@ -51,6 +51,7 @@ export const H1 = styled.h1`
     letter-spacing: 0em;
     text-align: left;
     margin: 0;
+    word-break: break-all;
 
     margin-bottom: ${p => P.mb || 0};
 `

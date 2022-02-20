@@ -10,6 +10,7 @@ import CreateCourse from "./Courses/Create";
 
 import Course from "./Course";
 import PublishCourse from "./Course/Publish";
+import RenameCourse from "./Course/Rename";
 
 import Header from "./components/Header";
 import RequireAuth from "./components/RequireAuth";
@@ -50,6 +51,7 @@ export default function App() {
             }
           >
             <Route path="publish" element={<PublishCourse />} />
+            <Route path="rename" element={<RenameCourse />} />
           </Route>
 
           <Route

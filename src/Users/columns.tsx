@@ -35,7 +35,7 @@ export const workoutColumns = [
   {
     width: 360,
     minWidth: 360,
-    accessor: (row: any) => "Тренировка на пресс" || row.name || "Не указано",
+    accessor: (row: any) => row.name || "Не указано",
     Header: "Тренировка",
   },
   {
