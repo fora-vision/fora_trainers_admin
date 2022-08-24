@@ -69,11 +69,17 @@ class ForaStore {
   }
 
   async cloneCourse(id: number) {
-    const index = this.courses.findIndex((c) => c.id == id);
+    const index = this.courses.findIndex((c) => c.id === id);
     const course = this.courses[index].serialize();
     const newCourse = await api.createCourse(course.name, course.description);
-    await api.updateCourse(newCourse.id, course);
-    this.courses.splice(index + 1, 0, new CourseModel(newCourse));
+
+    newCourse.program = course.program;
+    newCourse.name = course.name + " (copy)"
+    await api.updateCourse(newCourse.id, newCourse);
+
+    runInAction(() => {
+      this.courses.push(new CourseModel(newCourse))
+    })
   }
 
   async loadCourses() {

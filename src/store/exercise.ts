@@ -1,4 +1,6 @@
 import { action, makeObservable, observable, toJS } from "mobx";
+import uuid4 from 'uuid4';
+
 import { ExerciseDTO } from "./models";
 import ModificatorModel from "./modificator";
 
@@ -10,6 +12,7 @@ class ExerciseModel {
 
   modificators: ModificatorModel[] = [];
   draftModificator = new ModificatorModel();
+  id = uuid4()
 
   constructor(dto?: ExerciseDTO) {
     makeObservable(this, {

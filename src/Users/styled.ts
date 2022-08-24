@@ -34,6 +34,12 @@ export const Workouts = styled.div<{ isOpen: boolean }>`
 
   background: #eae9f1;
 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   > div {
     border-radius: 16px;
     box-sizing: border-box;
@@ -90,7 +96,7 @@ export const SortButton = styled(PureButton)<{ isDesc: boolean }>`
 `;
 
 export const Video = styled.div`
-  width: 500px;
+  width: 484px;
   background: #000;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 16px;
@@ -120,7 +126,7 @@ export const Chart = styled.div`
   height: 300px;
   margin-left: 16px;
   box-sizing: border-box;
-  width: 500px;
+  width: 484px;
   background: #fff;
 
   position: sticky;

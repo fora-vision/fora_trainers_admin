@@ -112,7 +112,7 @@ class CourseModel {
     await api.updateCourse(this.id, this.serialize());
   }
 
-  serialize(): any {
+  serialize() {
     const workouts = this.workouts.map((w) => w.serialize());
     return {
       avatar: "",

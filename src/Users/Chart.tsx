@@ -1,10 +1,11 @@
 import React, { FC, useMemo } from "react";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { UserDTO } from "../store/models";
 import { formatDate, getMonday } from "../components/date";
 
 interface Period {
-  count: number;
+  completed: number;
+  unfinished: number;
   start: number;
   end: number;
   date: string;
@@ -15,7 +16,7 @@ export const prepareData = (user: UserDTO): Period[] => {
   const endOfWeek = +getMonday(new Date()) + msInWeek;
 
   const collection: Period[] = [];
-  for (let i = 6; i >= 0; i--) {
+  for (let i = 24; i >= 0; i--) {
     const end = endOfWeek - i * msInWeek;
     const start = endOfWeek - (i + 1) * msInWeek;
     const workouts = user.workouts.filter((wrk) => {
@@ -23,7 +24,13 @@ export const prepareData = (user: UserDTO): Period[] => {
       return ts >= start && ts < end;
     });
 
-    collection.push({ count: workouts.length, start, end, date: formatDate(start) + " - " + formatDate(end) });
+    collection.push({
+      date: formatDate(start) + " - " + formatDate(end),
+      completed: workouts.filter((w: any) => w.status === 4).length,
+      unfinished: workouts.filter((w: any) => w.status !== 4).length,
+      start,
+      end,
+    });
   }
 
   return collection;
@@ -50,7 +57,8 @@ const WorkoutsChart: FC<{ user: UserDTO }> = ({ user }) => {
         <XAxis dataKey="date" />
         <YAxis />
         <Tooltip />
-        <Bar dataKey="count" fill="#5e7eaf" />
+        <Bar stackId="A" dataKey="completed" fill="#5e7eaf" />
+        <Bar stackId="A" dataKey="unfinished" fill="#929ba9" />
       </BarChart>
     </ResponsiveContainer>
   );

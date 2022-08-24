@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useTable, useFlexLayout, useSortBy, useExpanded } from "react-table";
 import { ReactComponent as ArrowDownIcon } from "../components/icons/arrow-down.svg";
 import * as S from "./styled";
-import { HeaderColumn } from "./styled";
 
 const Styles = styled.div`
   table {
@@ -57,6 +56,8 @@ const AnimatedSubRow = ({ row, visibleColumns, SubComponent }) => {
   );
 };
 
+const initialState = { sortBy: [{ id: "ФИО", desc: false }, { id: "Дата", desc: true }] };
+
 const Table = ({ columns, data, SubComponent, selected, onSelect }) => {
   const userColumns = useMemo(() => {
     if (!SubComponent) return columns;
@@ -64,7 +65,7 @@ const Table = ({ columns, data, SubComponent, selected, onSelect }) => {
   }, []);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, visibleColumns } = useTable(
-    { columns: userColumns, data },
+    { columns: userColumns, data, initialState },
     useFlexLayout,
     useSortBy,
     useExpanded

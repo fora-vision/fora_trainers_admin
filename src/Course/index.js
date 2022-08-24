@@ -28,9 +28,7 @@ const Course = () => {
           <Breadcrumbs>
             <Link to="/courses">Курсы тренировок</Link>
           </Breadcrumbs>
-          <H1 style={{ marginRight: 32 }}>
-            Курс «{course.name}»
-          </H1>
+          <H1 style={{ marginRight: 32 }}>Курс «{course.name}»</H1>
         </div>
 
         {course.isEditable ? (
@@ -62,36 +60,37 @@ const Course = () => {
       </S.Header>
 
       <div>
-        {course.workouts.map((workout, i) => (
-          <Card
-            key={i}
-            number={i}
-            title={workout.name || "Не указано"}
-            properties={[
-              { label: "Кол-во выполнений", value: 0 },
-              { label: "Кол-во сетов", value: workout.sets.length },
-            ]}
-            onClick={() => navigate(`/courses/${course.id}/${i}`)}
-            actions={
-              <div style={{ display: "flex" }}>
-                <PureButton onClick={() => course.runClassroom(i)}>
-                  <P>Запустить</P>
-                </PureButton>
+        {course.workouts.map((workout, i) => {
+          return (
+            <Card
+              key={i}
+              number={i}
+              title={workout.name || "Не указано"}
+              properties={[
+                { label: "Кол-во сетов", value: workout.sets.length },
+              ]}
+              onClick={() => navigate(`/courses/${course.id}/${i}`)}
+              actions={
+                <div style={{ display: "flex" }}>
+                  <PureButton onClick={() => course.runClassroom(i)}>
+                    <P>Запустить</P>
+                  </PureButton>
 
-                {course.isEditable && (
-                  <>
-                    <PureButton style={{ marginLeft: 8 }} onClick={() => course.cloneWorkout(i)}>
-                      <IconCopy />
-                    </PureButton>
-                    <PureButton style={{ marginLeft: 8 }} onClick={() => course.removeWorkout(i)}>
-                      <IconTrash />
-                    </PureButton>
-                  </>
-                )}
-              </div>
-            }
-          />
-        ))}
+                  {course.isEditable && (
+                    <>
+                      <PureButton style={{ marginLeft: 8 }} onClick={() => course.cloneWorkout(i)}>
+                        <IconCopy />
+                      </PureButton>
+                      <PureButton style={{ marginLeft: 8 }} onClick={() => course.removeWorkout(i)}>
+                        <IconTrash />
+                      </PureButton>
+                    </>
+                  )}
+                </div>
+              }
+            />
+          );
+        })}
       </div>
     </Container>
   );

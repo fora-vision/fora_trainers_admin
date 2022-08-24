@@ -2,6 +2,7 @@ import { action, makeObservable, observable, toJS } from "mobx";
 import { WorkoutDTO } from "./models";
 import ExerciseModel from "./exercise";
 import CourseModel from "./course";
+import uuid4 from "uuid4";
 
 class WorkoutModel {
   name: string;
@@ -9,6 +10,7 @@ class WorkoutModel {
 
   draftExercise = new ExerciseModel();
   sets: {
+    id: string;
     name: string;
     repeats: number;
     exercises: ExerciseModel[];
@@ -27,12 +29,14 @@ class WorkoutModel {
       saveDraftExercise: action,
       removeSet: action,
       addSet: action,
+      moveSet: action
     });
 
     this.isDraft = dto == null;
     this.name = dto?.name ?? "";
     this.sets =
       dto?.sets.map((set) => ({
+        id: uuid4(),
         name: set.name,
         repeats: set.repeats,
         exercises: set.exercises.map((ex) => new ExerciseModel(ex)),
@@ -48,7 +52,7 @@ class WorkoutModel {
   }
 
   addSet() {
-    this.sets.push({ name: "", repeats: 1, exercises: [] });
+    this.sets.push({ name: "", id: uuid4(), repeats: 1, exercises: [] });
   }
 
   changeSetName(set: number, name: string) {
@@ -63,6 +67,12 @@ class WorkoutModel {
     const isConfirm = window.confirm("Вы уверены, что хотите удалить сет?");
     if (!isConfirm) return;
     this.sets.splice(set, 1);
+  }
+
+  moveSet(set: number, move: number) {
+    const item = this.sets[set]
+    this.sets[set] = this.sets[set + move]
+    this.sets[set + move] = item
   }
 
   removeExercise(set: number, exercise: number) {
