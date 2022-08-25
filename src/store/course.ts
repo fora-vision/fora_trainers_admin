@@ -17,6 +17,8 @@ class CourseModel {
   inviteCode?: string;
   deadline?: number;
 
+  isExporting = false;
+
   constructor(dto: CourseDTO) {
     makeObservable(this, {
       name: observable,
@@ -25,12 +27,15 @@ class CourseModel {
       inviteCode: observable,
       users: observable,
       savePhotos: observable,
+      isExporting: observable,
 
       loadUsers: action,
       removeWorkout: action,
       cloneWorkout: action,
       saveDraftWorkout: action,
       publicate: action,
+      updateCourse: action,
+      downloadXlsx: action,
       isEditable: computed,
     });
 
@@ -102,10 +107,39 @@ class CourseModel {
     await this.save();
   }
 
-  async updateCourse(name: string, description: string) {
-    this.name = name
-    this.description = description
+  async updateCourse(name: string, description: string, deadline?: number) {
+    this.name = name;
+    this.description = description;
+    this.deadline = deadline ?? this.deadline;
     await this.save();
+  }
+
+  async downloadXlsx() {
+    this.isExporting = true;
+
+    try {
+      const data = await api.getUsersXlsx(this.id);
+      const url = URL.createObjectURL(data);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", this.name + "_users.xlsx");
+      document.body.appendChild(link);
+      link.click();
+    } catch {}
+
+    runInAction(() => {
+      this.isExporting = false;
+    });
+  }
+
+  async deleteUser(user: UserDTO) {
+    const isConfirm = window.confirm(`Вы уверены, что хотите удалить пользователя "${user.name}"?`);
+    if (!isConfirm) return;
+
+    await api.deleteUser(this.id, user.id);
+    runInAction(() => {
+      this.users = this.users.filter((u) => u.id !== user.id);
+    });
   }
 
   async save() {

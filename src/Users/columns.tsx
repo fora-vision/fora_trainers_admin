@@ -1,7 +1,9 @@
+import { Row } from "react-table";
 import CourseModel from "../store/course";
 import { formatDate, formatSecs } from "../components/date";
-import { Row } from "react-table";
-import { UserDTO, WorkoutDTO } from "../store/models";
+// @ts-ignore
+import { ReactComponent as IconTrash } from "../components/icons/trash.svg";
+import { UserDTO } from "../store/models";
 
 const completed = (workouts: any[]) => workouts.reduce((acc, w) => acc + (w.status === 4 ? 1 : 0.5), 0);
 
@@ -39,6 +41,21 @@ export const getColumns = (course: CourseModel) => [
     accessor: (row: any) => {
       return Math.round((row.workouts.length / course.workouts.length) * 100) + "%";
     },
+  },
+  {
+    Header: () => null,
+    id: "actions",
+    width: 38,
+    Cell: ({ row }: any) => (
+      <div {...row.getToggleRowExpandedProps()}>
+        <IconTrash
+          onClick={(e: any) => {
+            e.stopPropagation();
+            course.deleteUser(row.original);
+          }}
+        />
+      </div>
+    ),
   },
 ];
 

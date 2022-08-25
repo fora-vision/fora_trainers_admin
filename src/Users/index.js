@@ -7,14 +7,13 @@ import { H1 } from "../components/typographic";
 import { Container } from "../components/layout";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import useBreadcrumbs from "../components/useBreadcrumbs";
-import { PureButton } from "../components/button";
-
-import Table from "./Table";
-import WorkoutsChart from "./Chart";
-import { getColumns, workoutColumns } from "./columns";
-import * as S from "./styled";
-
+import { PureButton, StrokeButton } from "../components/button";
 import { ReactComponent as CloseIcon } from "../components/icons/close.svg";
+
+import { getColumns, workoutColumns } from "./columns";
+import WorkoutsChart from "./Chart";
+import Table from "./Table";
+import * as S from "./styled";
 
 const WorkoutTable = ({ row }) => {
   const [selected, setSelected] = useState(null);
@@ -64,6 +63,9 @@ const Users = () => {
           </Breadcrumbs>
           <H1>Пользователи курса ({course.users.length})</H1>
         </div>
+        <StrokeButton onClick={() => course.downloadXlsx()} disabled={course.isExporting}>
+          {course.isExporting ? "Экспортируем..." : "Экспорт"}
+        </StrokeButton>
       </S.Header>
 
       <Table data={toJS(course.users)} columns={getColumns(course)} SubComponent={WorkoutTable} />

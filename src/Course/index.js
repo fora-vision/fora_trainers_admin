@@ -33,13 +33,11 @@ const Course = () => {
 
         {course.isEditable ? (
           <SpaceBetween>
-            {course.isEditable && (
-              <Link to={`/courses/${course.id}/rename`}>
-                <StrokeButton style={{ width: 55, marginRight: 16 }}>
-                  <IconEdit />
-                </StrokeButton>
-              </Link>
-            )}
+            <Link to={`/courses/${course.id}/rename`}>
+              <StrokeButton style={{ width: 55, marginRight: 16 }}>
+                <IconEdit />
+              </StrokeButton>
+            </Link>
             <Link to={`/courses/${course.id}/publish`}>
               <StrokeButton style={{ width: 160 }}>Опубликовать</StrokeButton>
             </Link>
@@ -49,6 +47,11 @@ const Course = () => {
           </SpaceBetween>
         ) : (
           <SpaceBetween>
+            <Link to={`/courses/${course.id}/rename`}>
+              <StrokeButton style={{ width: 55, marginRight: 16 }}>
+                <IconEdit />
+              </StrokeButton>
+            </Link>
             <Link to={`/courses/${course.id}/users`}>
               <StrokeButton>Пользователи ({course.usersCount})</StrokeButton>
             </Link>
@@ -66,9 +69,7 @@ const Course = () => {
               key={i}
               number={i}
               title={workout.name || "Не указано"}
-              properties={[
-                { label: "Кол-во сетов", value: workout.sets.length },
-              ]}
+              properties={[{ label: "Кол-во сетов", value: workout.sets.length }]}
               onClick={() => navigate(`/courses/${course.id}/${i}`)}
               actions={
                 <div style={{ display: "flex" }}>

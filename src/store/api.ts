@@ -56,6 +56,24 @@ class ForaApi {
     });
   }
 
+  async deleteUser(course: number, user: number) {
+    await this.fetch(`api/v2/console/course/${course}/user/${user}`, {
+      method: "DELETE",
+    });
+  }
+
+  async getUsersXlsx(course: number) {
+    const res = await fetch(`${this.endpoint}/api/v2/console/${course}/users.xlsx`, {
+      headers: { Authorization: this.session },
+    });
+
+    if (!res.ok) {
+      throw Error(res.statusText);
+    }
+
+    return await res.blob();
+  }
+
   async getExercises(): Promise<Record<string, ExerciseRuleDTO>> {
     const { exercises } = await this.fetch("api/v1/workout/exercises");
     return exercises;
