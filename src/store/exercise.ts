@@ -1,6 +1,6 @@
 import { action, makeObservable, observable, toJS } from "mobx";
+import { t } from "i18next";
 import uuid4 from 'uuid4';
-
 import { ExerciseDTO } from "./models";
 import ModificatorModel from "./modificator";
 
@@ -36,8 +36,8 @@ class ExerciseModel {
   }
 
   getExecuteValue() {
-    if (this.type === "REPEATS") return `${this.value} повторов`;
-    else return `${this.value} секунд`;
+    if (this.type === "REPEATS") return `${this.value} ${t('store.exercise.repeats')}`;
+    else return `${this.value} ${t('store.exercise.seconds')}`;
   }
 
   getModificator(id: number): ModificatorModel | null {

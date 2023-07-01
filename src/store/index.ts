@@ -1,4 +1,5 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
+import { t } from "i18next";
 import CourseModel from "./course";
 import { ExerciseRuleDTO } from "./models";
 import api from "./api";
@@ -61,7 +62,7 @@ class ForaStore {
   }
 
   async removeCourse(id: number) {
-    const isConfirm = window.confirm("Вы уверены, что хотите удалить курс?");
+    const isConfirm = window.confirm(t("store.index.deleteCourseConfirm"));
     if (!isConfirm) return;
 
     this.courses = this.courses.filter((item) => item.id !== id);

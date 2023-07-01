@@ -1,5 +1,6 @@
 import React from "react";
-import {  Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from 'react-i18next'
 import { observer } from "mobx-react-lite";
 
 import useBreadcrumbs from "../components/useBreadcrumbs";
@@ -14,6 +15,7 @@ import store from "../store";
 function SetupExercise() {
   const params = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { isLoading, course, workout, exercise } = useBreadcrumbs();
 
   if (isLoading) return <Modal width={448} height={300} isOpen />;
@@ -32,11 +34,11 @@ function SetupExercise() {
 
   return (
     <Modal width={448} isOpen onClose={() => navigate(workoutPath, { replace: true })}>
-      <PBold style={{ textAlign: "center" }}>{exercise.isDraft ? "Добавить упражнение" : "Редактировать"}</PBold>
+      <PBold style={{ textAlign: "center" }}>{exercise.isDraft ? t("workout.setupExercise.addExercise") : t("workout.setupExercise.edit")}</PBold>
       <VSpace s={40} />
 
       <Select
-        placeholder="Название упражнения"
+        placeholder={t("workout.setupExercise.exerciseNamePlaceholder")}
         items={store.getExercisesList()}
         onChange={(e) => exercise.setLabel(e.target.value)}
         value={exercise.label}
@@ -45,13 +47,13 @@ function SetupExercise() {
 
       <Input
         type="number"
-        placeholder={exercise.type === "REPEATS" ? "Количество повторов" : "Время выполнения"}
+        placeholder={exercise.type === "REPEATS" ? t("workout.setupExercise.numberOfRepetitions") : t("workout.setupExercise.executionTime")}
         onChange={(e) => exercise.setValue(isNaN(+e.target.value) ? 0 : Math.max(0, +e.target.value))}
         value={exercise.value || ""}
       />
 
       <VSpace s={24} />
-      <ActionButton onClick={saveExercise}>{exercise.isDraft ? "Добавить" : "Сохранить"}</ActionButton>
+      <ActionButton onClick={saveExercise}>{exercise.isDraft ? t("workout.setupExercise.add") : t("workout.setupExercise.save")}</ActionButton>
     </Modal>
   );
 }

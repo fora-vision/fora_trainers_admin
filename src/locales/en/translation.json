@@ -1,0 +1,186 @@
+{
+    "components": {
+        "card": {
+            "title": "title",
+            "actions": "actions"
+        },
+        "header": {
+            "courses": "training courses",
+            "logout": "logout"
+        }
+    },
+    "course": {
+        "index": {
+            "breadCourses": "workout courses",
+            "title": "course",
+            "buttons": {
+                "publish": "publish",
+                "create": "Create a workout"
+            },
+            "users": "users",
+            "inviteCode": "InviteCode",
+            "unspecified": "Not specified",
+            "numbersOfSets": "numbersOfSets",
+            "launch": "launch"
+        },
+        "publish": {
+            "title": "publish course",
+            "caution": "Caution! Once published, the course will not be available for editing and you will be able to send an invite code to participants to start training. However, you will be able to change the course deadline.",
+            "description": "Specify the end date of the course, after which participants can no longer take the course",
+            "endDatePlaceholder": "endDatePlaceholder",
+            "enablePhotosOffer": "Enable sending photos in users during a workout every 5 seconds. Photos will be displayed in the visualization of video reports",
+            "enablePhotosCaution": "Warning, we will notify users that their workouts are being recorded, if possible, do not enable this option.",
+            "actionButton": "Publish"
+        },
+        "rename": {
+            "editDeadline": "Change course deadline",
+            "setEndDate": "Specify the end date after which participants can no longer take the course",
+            "endDatePlaceholder": "endDatePlaceholder",
+            "save": "Save",
+            "renameCourse": "Rename Course",
+            "courseNamePlaceholder": "courseNamePlaceholder",
+            "courseDescriptionPlaceholder": "courseDescriptionPlaceholder"
+        }
+    },
+    "courses": {
+        "create": {
+            "createCourse": "Create course",
+            "courseNamePlaceholder": "courseNamePlaceholder",
+            "courseDescriptionPlaceholder": "courseDescriptionPlaceholder",
+            "continue": "Continue"
+        },
+        "index": {
+            "numberOfWorkouts": "number of workouts",
+            "numberOfUsers": "number ofUsers",
+            "deadline": "deadline",
+            "notPublished": "Not published",
+            "courses": "training courses",
+            "createCourse": "Create course",
+            "unpublished": "Unpublished",
+            "active": "active",
+            "completed": "executed"
+        }
+    },
+    "login": {
+        "index": {
+            "login": "login",
+            "emailPlaceholder": "email",
+            "passwordPlaceholder": "password",
+            "logon": "login",
+            "questions": "Questions have arisen",
+            "writeUs": "writeUs"
+        }
+    },
+    "store": {
+        "course": {
+            "deleteWorkoutConfirm": "Are you sure you want to delete the workout?",
+            "deleteUserConfirm": "Are you sure you want to delete the user"
+        },
+        "exercise": {
+            "repeats": "repeats",
+            "seconds": "seconds"
+        },
+        "index": {
+            "deleteCourseConfirm": "Are you sure you want to delete the course?"
+        },
+        "modificator": {
+            "skips": "skips",
+            "complications": "complications",
+            "simplifications": "simplifications",
+            "men": "men",
+            "women": "women",
+            "complete": "complete",
+            "ordinary": "usual",
+            "sports": "sports",
+            "everyone": "everyone",
+            "for": "for"
+        },
+        "workout": {
+            "deleteSetConfirm": "Are you sure you want to delete the set?",
+            "deleteExerciseConfirm": "Are you sure you want to delete the exercise?"
+        }
+    },
+    "users": {
+        "columns": {
+            "notSpecified": "Not specified",
+            "name": "surname",
+            "age": "age",
+            "gender": "gender",
+            "male": "male",
+            "female": "female",
+            "training": "training",
+            "from": "of",
+            "progress": "progress",
+            "workout": "workout",
+            "date": "date",
+            "time": "time"
+        },
+        "index": {
+            "course": "training courses",
+            "courseUsers": "courseUsers",
+            "exporting": "Exporting...",
+            "export": "export"
+        },
+        "table": {
+            "name": "surname",
+            "date": "date"
+        }
+    },
+    "workout": {
+        "modifiers": {
+            "modifiers": "modifiers",
+            "addMore": "Add more"
+        },
+        "setupExercise": {
+            "addExercise": "Add Exercise",
+            "edit": "edit",
+            "exerciseNamePlaceholder": "exerciseNamePlaceholder",
+            "numberOfRepetitions": "number of repetitions",
+            "executionTime": "execution time",
+            "add": "add",
+            "save": "save"
+        },
+        "setupModifier": {
+            "add": "add",
+            "edit": "edit",
+            "modificator": "modifier",
+            "forGenderPlaceholder": "For which gender",
+            "forEveryone": "For everyone",
+            "forMale": "forMale",
+            "forFemale": "forFemale",
+            "physique": "physique",
+            "any": "Any",
+            "complete": "complete",
+            "normal": "normal",
+            "strong": "taut",
+            "modificatorTypePlaceholder": "modifierTypePlaceholder",
+            "skipExercise": "Skip Exercise",
+            "complicate": "complication",
+            "simplify": "simplify",
+            "value": "value",
+            "complications": "complications",
+            "simplifications": "simplifications",
+            "by": "on"
+        },
+        "setupWorkout": {
+            "createWorkout": "createWorkout",
+            "editWorkout": "editWorkout",
+            "courses": "training courses",
+            "watchWorkout": "watchWorkout",
+            "information": "general information",
+            "workoutNamePlaceholder": "workoutNamePlaceholder",
+            "sets": "sets",
+            "set": "SET",
+            "numberOfRepetitionsInSet": "Number of RepetitionsInSet",
+            "exercise": "exercise",
+            "numberOfRepetitions": "number of repetitions/minutes",
+            "modifiers": "modifiers",
+            "actions": "actions",
+            "addExercise": "Add Exercise",
+            "addSet": "addSet",
+            "saveChanges": "saveChanges",
+            "modifier": "modifier",
+            "addModifier": "AddModifier"
+        }
+    }
+}

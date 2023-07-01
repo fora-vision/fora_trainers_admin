@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from 'react-i18next'
 import { observer } from "mobx-react-lite";
 
 import { ReactComponent as IconTrash } from "../components/icons/trash.svg";
@@ -13,6 +14,7 @@ import useBreadcrumbs from "../components/useBreadcrumbs";
 
 function Modifiers() {
   const params = useParams();
+  const { t } = useTranslation();
   const { isLoading, course, exercise, workout } = useBreadcrumbs();
   const navigate = useNavigate();
 
@@ -26,7 +28,7 @@ function Modifiers() {
 
   return (
     <Modal width={448} isOpen onClose={() => navigate(workoutPath, { replace: true })}>
-      <PBold style={{ textAlign: "center" }}>Модификаторы</PBold>
+      <PBold style={{ textAlign: "center" }}>{t("workout.modifiers.modifiers")}</PBold>
       <VSpace s={40} />
 
       {exercise.modificators.map((mod, modIndex) => (
@@ -57,7 +59,7 @@ function Modifiers() {
       <VSpace s={8} />
 
       <Link to="create">
-        <ActionButton>Добавить еще</ActionButton>
+        <ActionButton>{t("workout.modifiers.addMore")}</ActionButton>
       </Link>
     </Modal>
   );

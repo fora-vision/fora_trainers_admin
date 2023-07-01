@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useTranslation } from 'react-i18next'
 
 import { H1, PSmall } from "../components/typographic";
 import { VSpace } from "../components/layout";
@@ -11,6 +12,7 @@ import { LoginForm } from "./styled";
 import { Navigate } from "react-router";
 
 const Login = () => {
+  const { t } = useTranslation();
   const { register, handleSubmit, formState } = useForm({ mode: "onChange" });
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,11 +29,11 @@ const Login = () => {
 
   return (
     <LoginForm onSubmit={handleSubmit(login)}>
-      <H1>Вход</H1>
+      <H1>{t("login.index.login")}</H1>
       <VSpace s={56} />
 
       <Input
-        placeholder="Email"
+        placeholder={t("login.index.emailPlaceholder")}
         autoComplete="username"
         {...register("login", { required: true })}
       />
@@ -39,21 +41,21 @@ const Login = () => {
 
       <Input
         type="password"
-        placeholder="Пароль"
+        placeholder={t("login.index.passwordPlaceholder")}
         autoComplete="current-password"
         {...register("password", { required: true })}
       />
       <VSpace s={32} />
 
       <ActionButton disabled={!formState.isValid} type="submit">
-        Войти
+        {t("login.index.logon")}
       </ActionButton>
       <VSpace s={24} />
 
       <PSmall style={{ textAlign: "center", color: "#65656D" }}>
-        Возникли вопросы?
+        {t("login.index.questions")}?
         <br />
-        Напишите нам: help@fora.vision
+        {t("login.index.writeUs")}: help@fora.vision
       </PSmall>
     </LoginForm>
   );

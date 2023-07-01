@@ -5,6 +5,7 @@ import { StyledEngineProvider, ThemeProvider, createTheme } from "@mui/material/
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import i18n from "./i18n";
 
 const theme = createTheme({
   typography: {
@@ -15,6 +16,8 @@ const theme = createTheme({
       "    sans-serif",
   },
 });
+
+i18n.changeLanguage("ru");
 
 ReactDOM.render(
   <React.StrictMode>
