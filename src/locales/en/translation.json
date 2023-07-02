@@ -1,33 +1,33 @@
 {
     "components": {
         "card": {
-            "title": "title",
-            "actions": "actions"
+            "title": "Title",
+            "actions": "Actions"
         },
         "header": {
-            "courses": "training courses",
-            "logout": "logout"
+            "courses": "Training courses",
+            "logout": "Log out"
         }
     },
     "course": {
         "index": {
-            "breadCourses": "workout courses",
-            "title": "course",
+            "breadCourses": "Training courses",
+            "title": "Course",
             "buttons": {
-                "publish": "publish",
+                "publish": "Publish",
                 "create": "Create a workout"
             },
-            "users": "users",
-            "inviteCode": "InviteCode",
+            "users": "Users",
+            "inviteCode": "Invite-code",
             "unspecified": "Not specified",
-            "numbersOfSets": "numbersOfSets",
-            "launch": "launch"
+            "numbersOfSets": "Number of sets",
+            "launch": "Launch"
         },
         "publish": {
-            "title": "publish course",
+            "title": "Publish course",
             "caution": "Caution! Once published, the course will not be available for editing and you will be able to send an invite code to participants to start training. However, you will be able to change the course deadline.",
             "description": "Specify the end date of the course, after which participants can no longer take the course",
-            "endDatePlaceholder": "endDatePlaceholder",
+            "endDatePlaceholder": "End date of course",
             "enablePhotosOffer": "Enable sending photos in users during a workout every 5 seconds. Photos will be displayed in the visualization of video reports",
             "enablePhotosCaution": "Warning, we will notify users that their workouts are being recorded, if possible, do not enable this option.",
             "actionButton": "Publish"
@@ -35,40 +35,40 @@
         "rename": {
             "editDeadline": "Change course deadline",
             "setEndDate": "Specify the end date after which participants can no longer take the course",
-            "endDatePlaceholder": "endDatePlaceholder",
+            "endDatePlaceholder": "End date of course",
             "save": "Save",
             "renameCourse": "Rename Course",
-            "courseNamePlaceholder": "courseNamePlaceholder",
-            "courseDescriptionPlaceholder": "courseDescriptionPlaceholder"
+            "courseNamePlaceholder": "Course name",
+            "courseDescriptionPlaceholder": "Course description"
         }
     },
     "courses": {
         "create": {
             "createCourse": "Create course",
-            "courseNamePlaceholder": "courseNamePlaceholder",
-            "courseDescriptionPlaceholder": "courseDescriptionPlaceholder",
+            "courseNamePlaceholder": "Course name",
+            "courseDescriptionPlaceholder": "Course description",
             "continue": "Continue"
         },
         "index": {
-            "numberOfWorkouts": "number of workouts",
-            "numberOfUsers": "number ofUsers",
-            "deadline": "deadline",
+            "numberOfWorkouts": "Number of workouts",
+            "numberOfUsers": "Number of users",
+            "deadline": "Deadline",
             "notPublished": "Not published",
-            "courses": "training courses",
+            "courses": "Training courses",
             "createCourse": "Create course",
             "unpublished": "Unpublished",
-            "active": "active",
-            "completed": "executed"
+            "active": "Active",
+            "completed": "Executed"
         }
     },
     "login": {
         "index": {
-            "login": "login",
-            "emailPlaceholder": "email",
-            "passwordPlaceholder": "password",
-            "logon": "login",
-            "questions": "Questions have arisen",
-            "writeUs": "writeUs"
+            "login": "Log in",
+            "emailPlaceholder": "Email",
+            "passwordPlaceholder": "Password",
+            "logon": "Log on",
+            "questions": "Any questions",
+            "writeUs": "Write to us"
         }
     },
     "store": {
@@ -84,9 +84,9 @@
             "deleteCourseConfirm": "Are you sure you want to delete the course?"
         },
         "modificator": {
-            "skips": "skips",
-            "complications": "complications",
-            "simplifications": "simplifications",
+            "skips": "Skips",
+            "complications": "Complications",
+            "simplifications": "Simplifications",
             "men": "men",
             "women": "women",
             "complete": "complete",
@@ -103,84 +103,84 @@
     "users": {
         "columns": {
             "notSpecified": "Not specified",
-            "name": "surname",
-            "age": "age",
-            "gender": "gender",
-            "male": "male",
-            "female": "female",
-            "training": "training",
-            "from": "of",
-            "progress": "progress",
-            "workout": "workout",
-            "date": "date",
-            "time": "time"
+            "name": "Name",
+            "age": "Age",
+            "gender": "Gender",
+            "male": "Male",
+            "female": "Female",
+            "training": "Training",
+            "from": "from",
+            "progress": "Progress",
+            "workout": "Workout",
+            "date": "Date",
+            "time": "Time"
         },
         "index": {
-            "course": "training courses",
-            "courseUsers": "courseUsers",
+            "course": "Training courses",
+            "courseUsers": "Course users",
             "exporting": "Exporting...",
-            "export": "export"
+            "export": "Export"
         },
         "table": {
-            "name": "surname",
-            "date": "date"
+            "name": "Name",
+            "date": "Date"
         }
     },
     "workout": {
         "modifiers": {
-            "modifiers": "modifiers",
+            "modifiers": "Modifiers",
             "addMore": "Add more"
         },
         "setupExercise": {
             "addExercise": "Add Exercise",
-            "edit": "edit",
-            "exerciseNamePlaceholder": "exerciseNamePlaceholder",
-            "numberOfRepetitions": "number of repetitions",
-            "executionTime": "execution time",
-            "add": "add",
-            "save": "save"
+            "edit": "Edit",
+            "exerciseNamePlaceholder": "Exercise name",
+            "numberOfRepetitions": "Number of repetitions",
+            "executionTime": "Execution time",
+            "add": "Add",
+            "save": "Save"
         },
         "setupModifier": {
-            "add": "add",
-            "edit": "edit",
+            "add": "Add",
+            "edit": "Edit",
             "modificator": "modifier",
             "forGenderPlaceholder": "For which gender",
             "forEveryone": "For everyone",
-            "forMale": "forMale",
-            "forFemale": "forFemale",
-            "physique": "physique",
+            "forMale": "For male",
+            "forFemale": "For female",
+            "physique": "Physique",
             "any": "Any",
-            "complete": "complete",
-            "normal": "normal",
-            "strong": "taut",
-            "modificatorTypePlaceholder": "modifierTypePlaceholder",
+            "complete": "Complete",
+            "normal": "Normal",
+            "strong": "Strong",
+            "modificatorTypePlaceholder": "Modifier type",
             "skipExercise": "Skip Exercise",
-            "complicate": "complication",
-            "simplify": "simplify",
-            "value": "value",
-            "complications": "complications",
-            "simplifications": "simplifications",
-            "by": "on"
+            "complicate": "Complication",
+            "simplify": "Simplify",
+            "value": "Value",
+            "complications": "Complications",
+            "simplifications": "Simplifications",
+            "by": "by"
         },
         "setupWorkout": {
-            "createWorkout": "createWorkout",
-            "editWorkout": "editWorkout",
-            "courses": "training courses",
-            "watchWorkout": "watchWorkout",
-            "information": "general information",
-            "workoutNamePlaceholder": "workoutNamePlaceholder",
-            "sets": "sets",
+            "createWorkout": "Create workout",
+            "editWorkout": "Edit workout",
+            "courses": "Training courses",
+            "watchWorkout": "View workout",
+            "information": "General information",
+            "workoutNamePlaceholder": "Workout name",
+            "sets": "Sets",
             "set": "SET",
-            "numberOfRepetitionsInSet": "Number of RepetitionsInSet",
-            "exercise": "exercise",
-            "numberOfRepetitions": "number of repetitions/minutes",
-            "modifiers": "modifiers",
-            "actions": "actions",
+            "numberOfRepetitionsInSet": "Number of set repetitions",
+            "exercise": "Exercise",
+            "numberOfRepetitions": "Number of repetitions/minutes",
+            "modifiers": "Modifiers",
+            "actions": "Actions",
             "addExercise": "Add Exercise",
-            "addSet": "addSet",
-            "saveChanges": "saveChanges",
-            "modifier": "modifier",
-            "addModifier": "AddModifier"
+            "addSet": "Add set",
+            "saveChanges": "Save changes",
+            "modifier": "Modifier",
+            "addModifier": "Add modifier"
         }
     }
 }
