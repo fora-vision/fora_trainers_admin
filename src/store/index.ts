@@ -27,14 +27,14 @@ class ForaStore {
   }
 
   getExerciseName(id: string) {
-    return this.exercises[id]?.name ?? `${id} [Deleted]`;
+    return t(`api.exercises.${this.exercises[id]?.label}`) ?? `${id} [Deleted]`;
   }
 
   getExercisesList() {
     return Object.entries(this.exercises)
       .map(([id, ex]) => ({
         value: id,
-        label: ex.name,
+        label: t(`api.exercises.${ex.label}`),
       }))
       .sort((a, b) => {
         if (a.label < b.label) return -1;

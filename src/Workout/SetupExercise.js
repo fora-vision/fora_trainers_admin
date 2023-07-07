@@ -51,7 +51,6 @@ function SetupExercise() {
         onChange={(e) => exercise.setValue(isNaN(+e.target.value) ? 0 : Math.max(0, +e.target.value))}
         value={exercise.value || ""}
       />
-
       <VSpace s={24} />
       <ActionButton onClick={saveExercise}>{exercise.isDraft ? t("workout.setupExercise.add") : t("workout.setupExercise.save")}</ActionButton>
     </Modal>

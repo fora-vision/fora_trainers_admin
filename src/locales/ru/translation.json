@@ -182,5 +182,36 @@
             "modifier": "модификатора",
             "addModifier": "Добавить модификатор"
         }
+    },
+    "api": {
+        "exercises": {
+            "folding_bed": "раскладушка",
+            "knee_tightening": "скалолаз",
+            "burpee": "берпи",
+            "superman-left": "супермен на левую руку",
+            "superman-right": "супермен на правую руку",
+            "hip_thrust": "ягодичный мостик",
+            "toe_touches": "подъем копрпуса к ногам",
+            "side_plank-straight": "боковая планка грудью к камере",
+            "side_plank-back": "боковая планка спиной к камере",
+            "star": "бабочка",
+            "pushups": "отжимания",
+            "bicycle": "велосипед",
+            "leglifts": "подъем ног",
+            "lunges-left": "выпады на левую ногу",
+            "lunges-right": "выпады на правую ногу",
+            "squats": "приседание",
+            "twisting": "скручивание",
+            "knees_raising": "подъем колен",
+            "jumping": "выпрыгивания",
+            "reverse_pushups": "обратные отжимания на трицепс",
+            "sit_up": "скручивания с касанием пола",
+            "superman_lie": "супермен лежа на полу",
+            "swimmer": "пловец",
+            "superman_side": "супермен руки в стороны",
+            "angel_wings": "ангельские крылья",
+            "side_leglifts-left": "Подъем левой ноги",
+            "side_leglifts-right": "Подъем правой ноги"
+        }
     }
 }

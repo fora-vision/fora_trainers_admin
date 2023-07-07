@@ -182,5 +182,36 @@
             "modifier": "Modifier",
             "addModifier": "Add modifier"
         }
+    },
+    "api": {
+        "exercises": {
+            "folding_bed": "folding bed",
+            "knee_tightening": "knee tightening",
+            "burpee": "burpee",
+            "superman-left": "left superman",
+            "superman-right": "right superman",
+            "hip_thrust": "hip thrust",
+            "toe_touches": "toe touches",
+            "side_plank-straight": "straight side plank",
+            "side_plank-back": "back side plank",
+            "star": "star",
+            "pushups": "pushups",
+            "bicycle": "bicycle",
+            "leglifts": "leglifts",
+            "lunges-left": "left lunges",
+            "lunges-right": "right lunges",
+            "squats": "squats",
+            "twisting": "twisting",
+            "knees_raising": "knees raising",
+            "jumping": "jumping",
+            "reverse_pushups": "reverse pushups",
+            "sit_up": "sit up",
+            "superman_lie": "lie superman",
+            "swimmer": "swimmer",
+            "superman_side": "side superman",
+            "angel_wings": "angel wings",
+            "side_leglifts-left": "left side leglifts",
+            "side_leglifts-right": "right side leglifts"
+        }
     }
 }
