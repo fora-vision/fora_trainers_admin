@@ -7,6 +7,7 @@ export const Header = styled.header`
 
   background: #ffffff;
   width: 100%;
+  border-bottom: 1px solid #eee;
 `;
 
 export const Logo = styled.img`

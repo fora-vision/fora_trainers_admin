@@ -1,4 +1,4 @@
-import { CourseDTO, ExerciseRuleDTO, UserDTO } from "./models";
+import { AccountData, AccountSettings, CourseDTO, ExerciseRuleDTO, UserDTO } from "./models";
 
 class ForaApi {
   private session: string = "";
@@ -87,6 +87,19 @@ class ForaApi {
   async getUsers(id: number): Promise<UserDTO[]> {
     const { users } = await this.fetch(`api/v2/console/users?course_id=${id}`);
     return users;
+  }
+
+  async getUser(): Promise<AccountData> {
+    return await this.fetch(`api/v2/console/admin`);
+  }
+
+  async createAccount(settings: AccountSettings): Promise<string> {
+    const { session } = await this.fetch("api/v2/console/account", {
+      body: JSON.stringify(settings),
+      method: "POST",
+    });
+
+    return session;
   }
 
   async login(login: string, password: string) {

@@ -26,16 +26,24 @@ const inputStyle = css`
   &:focus {
     outline: none;
     box-shadow: 0 0 0 2px #7933d2;
+    border-color: none;
   }
+
+  ${(p) =>
+    p.isError &&
+    css`
+      border-color: red;
+      box-shadow: 0 0 0 2px red !important;
+    `}
 `;
 
 export const Input = styled.input`
-    ${inputStyle}
+  ${inputStyle}
 `;
 
 export const Textarea = styled.textarea`
-    ${inputStyle}
-    height: 120px;
-    padding: 20px;
-    resize: vertical;
+  ${inputStyle}
+  height: 120px;
+  padding: 20px;
+  resize: vertical;
 `;

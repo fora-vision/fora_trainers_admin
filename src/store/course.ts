@@ -62,8 +62,8 @@ class CourseModel {
   }
 
   async getUser(id: number | string) {
-    if (this.users.length == 0) await this.loadUsers();
-    return this.users.find((user) => user.id == +id);
+    if (this.users.length === 0) await this.loadUsers();
+    return this.users.find((user) => user.id === +id);
   }
 
   async loadUsers() {

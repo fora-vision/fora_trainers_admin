@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #F4F3F6;
-  color: #020209;
+  background: #F4F3F6 !important;
+  color: #020209 !important;
 }
 
 a {
@@ -16,4 +16,9 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.toastify {
+  background: #7933d2 !important;
+  border-radius: 12px !important;
 }

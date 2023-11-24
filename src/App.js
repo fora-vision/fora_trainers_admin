@@ -19,6 +19,7 @@ import Modifiers from "./Workout/Modifiers";
 import SetupWorkout from "./Workout/SetupWorkout";
 import SetupModifier from "./Workout/SetupModifier";
 import SetupExercise from "./Workout/SetupExercise";
+import CreateAccount from "./Login/Create";
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/auth" element={<CreateAccount />} />
           <Route path="/" element={<Navigate to="/courses" />} />
 
           <Route

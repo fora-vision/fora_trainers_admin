@@ -1,17 +1,25 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
+import { AccountData, AccountSettings, ExerciseRuleDTO } from "./models";
 import CourseModel from "./course";
-import { ExerciseRuleDTO } from "./models";
 import api from "./api";
 
 class ForaStore {
   isLoged = false;
   courses: CourseModel[] = [];
   exercises: Record<string, ExerciseRuleDTO> = {};
+  user: AccountData = {
+    avatar_url: "",
+    email: "",
+    free_time: 0,
+    name: "",
+    organization: "",
+  };
 
   constructor() {
     makeObservable(this, {
       isLoged: observable,
       courses: observable,
+      user: observable,
       login: action,
       logout: action,
       cloneCourse: action,
@@ -74,20 +82,37 @@ class ForaStore {
     const newCourse = await api.createCourse(course.name, course.description);
 
     newCourse.program = course.program;
-    newCourse.name = course.name + " (copy)"
+    newCourse.name = course.name + " (copy)";
     await api.updateCourse(newCourse.id, newCourse);
 
     runInAction(() => {
-      this.courses.push(new CourseModel(newCourse))
-    })
+      this.courses.push(new CourseModel(newCourse));
+    });
+  }
+
+  async loadUser() {
+    const user = await api.getUser();
+    runInAction(() => {
+      this.user = user;
+    });
   }
 
   async loadCourses() {
+    this.loadUser();
     const courses = await api.getCourses();
     const exercises = await api.getExercises();
     runInAction(() => {
       this.exercises = exercises;
       this.courses = courses.map((course) => new CourseModel(course));
+    });
+  }
+
+  async create(settings: AccountSettings) {
+    const session = await api.createAccount(settings);
+    runInAction(() => {
+      api.setAuthToken(session);
+      localStorage.setItem("session", session);
+      this.isLoged = true;
     });
   }
 

@@ -1,3 +1,20 @@
+export interface AccountSettings {
+  name: string;
+  login: string;
+  password: string;
+  email: string;
+  avatar_url: string;
+  organization: string;
+}
+
+export interface AccountData {
+  name: string;
+  email: string;
+  avatar_url: string;
+  organization: string;
+  free_time: number;
+}
+
 export interface CourseDTO {
   id: number;
   name: string;

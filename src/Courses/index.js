@@ -12,7 +12,6 @@ import { H1, H2 } from "../components/typographic";
 import Card from "../components/Card";
 import store from "../store";
 import * as S from "./styled";
-import { toJS } from "mobx";
 
 const Courses = () => {
   const navigate = useNavigate();

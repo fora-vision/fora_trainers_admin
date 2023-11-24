@@ -1,28 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { StyledEngineProvider, ThemeProvider, createTheme } from "@mui/material/styles";
+import "toastify-js/src/toastify.css";
+import "@gravity-ui/uikit/styles/fonts.css";
+import "@gravity-ui/uikit/styles/styles.css";
+import { ThemeProvider } from "@gravity-ui/uikit";
 
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-const theme = createTheme({
-  typography: {
-    fontWeightRegular: 500,
-    fontFamily:
-      "Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n" +
-      "    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n" +
-      "    sans-serif",
-  },
-});
-
 ReactDOM.render(
   <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <ThemeProvider theme="light">
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,6 +1,8 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Navigate } from "react-router";
+import Toastify from "toastify-js";
 
 import { H1, PSmall } from "../components/typographic";
 import { VSpace } from "../components/layout";
@@ -8,7 +10,6 @@ import { ActionButton } from "../components/button";
 import { Input } from "../components/input";
 import store from "../store/index";
 import { LoginForm } from "./styled";
-import { Navigate } from "react-router";
 
 const Login = () => {
   const { register, handleSubmit, formState } = useForm({ mode: "onChange" });
@@ -21,8 +22,12 @@ const Login = () => {
 
   let from = location.state?.from?.pathname || "/";
   const login = async ({ login, password }) => {
-    await store.login(login, password);
-    navigate(from, { replace: true });
+    try {
+      await store.login(login, password);
+      navigate(from, { replace: true });
+    } catch {
+      Toastify({ text: "Something wrong", duration: 3000 }).showToast();
+    }
   };
 
   return (
@@ -30,11 +35,7 @@ const Login = () => {
       <H1>Вход</H1>
       <VSpace s={56} />
 
-      <Input
-        placeholder="Email"
-        autoComplete="username"
-        {...register("login", { required: true })}
-      />
+      <Input placeholder="Email" autoComplete="username" {...register("login", { required: true })} />
       <VSpace s={16} />
 
       <Input
@@ -48,7 +49,14 @@ const Login = () => {
       <ActionButton disabled={!formState.isValid} type="submit">
         Войти
       </ActionButton>
-      <VSpace s={24} />
+
+      <VSpace s={12} />
+
+      <PSmall>
+        <Link to="/auth">Нет аккаунта? Зарегистрируйтесь</Link>
+      </PSmall>
+
+      <VSpace s={32} />
 
       <PSmall style={{ textAlign: "center", color: "#65656D" }}>
         Возникли вопросы?
