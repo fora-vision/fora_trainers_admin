@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next'
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import { Link, Navigate } from "react-router-dom";
@@ -44,6 +45,7 @@ const WorkoutTable = ({ row }) => {
 };
 
 const Users = () => {
+  const { t } = useTranslation();
   const { isLoading, course } = useBreadcrumbs();
 
   useEffect(() => {
@@ -58,13 +60,13 @@ const Users = () => {
       <S.Header>
         <div>
           <Breadcrumbs>
-            <Link to="/courses">Курсы тренировок</Link>
+            <Link to="/courses">{t("users.index.course")}</Link>
             <Link to={course.path}>{course.name}</Link>
           </Breadcrumbs>
-          <H1>Пользователи курса ({course.users.length})</H1>
+          <H1>{t("users.index.courseUsers")} ({course.users.length})</H1>
         </div>
         <StrokeButton onClick={() => course.downloadXlsx()} disabled={course.isExporting}>
-          {course.isExporting ? "Экспортируем..." : "Экспорт"}
+          {course.isExporting ? t("users.index.exporting") : t("users.index.export")}
         </StrokeButton>
       </S.Header>
 

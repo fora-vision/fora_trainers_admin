@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next'
 import { observer } from "mobx-react-lite";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { DndContext, DragOverlay, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
@@ -21,6 +22,7 @@ import * as S from "./styled";
 import { Droppable, SortableItem } from "./dnd";
 
 const SetupWorkout = () => {
+  const { t } = useTranslation();
   const { isLoading, course, workout } = useBreadcrumbs();
   const [activeId, setActiveId] = useState(null);
   const { pathname } = useLocation();
@@ -45,7 +47,7 @@ const SetupWorkout = () => {
   if (!course) return <Navigate to="/courses" replace />;
   if (!workout) return <Navigate to={course.path} replace />;
 
-  const title = workout.isDraft ? "Создать тренировку" : "Редактировать тренировку";
+  const title = workout.isDraft ? t("workout.setupWorkout.createWorkout") : t("workout.setupWorkout.editWorkout");
   const saveWorkout = async () => {
     if (workout.isDraft) await course.saveDraftWorkout();
     else await course.save();
@@ -87,26 +89,26 @@ const SetupWorkout = () => {
       <VSpace s={56} />
 
       <Breadcrumbs>
-        <Link to="/courses">Курсы тренировок</Link>
+        <Link to="/courses">{t("workout.setupWorkout.courses")}</Link>
         <Link to={course.path}>{course.name}</Link>
       </Breadcrumbs>
 
-      <H1>{course.isEditable ? title : "Посмотреть тренировку"}</H1>
+      <H1>{course.isEditable ? title : t("workout.setupWorkout.watchWorkout")}</H1>
       <VSpace s={40} />
 
-      <H2>Общая информация</H2>
+      <H2>{t("workout.setupWorkout.information")}</H2>
       <VSpace s={24} />
 
       <Input
         style={{ width: 448 }}
-        placeholder="Название тренировки"
+        placeholder={t("workout.setupWorkout.workoutNamePlaceholder")}
         onChange={(e) => workout.setName(e.target.value)}
         disabled={course.isEditable === false}
         value={workout.name}
       />
       <VSpace s={40} />
 
-      <H2>Сеты</H2>
+      <H2>{t("workout.setupWorkout.sets")}</H2>
       <VSpace s={24} />
 
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragOver} sensors={sensors}>
@@ -116,7 +118,7 @@ const SetupWorkout = () => {
               <S.SetCard>
                 <SpaceBetween>
                   <SpaceBetween>
-                    <H3>СЕТ {setIndex + 1}</H3>
+                    <H3>{t("workout.setupWorkout.set")} {setIndex + 1}</H3>
                     {setIndex > 0 && course.isEditable && (
                       <PureButton style={{ marginLeft: 16 }} onClick={() => workout.moveSet(setIndex, -1)}>
                         <ArrowDown style={{ transform: "rotate(-180deg)" }} />
@@ -137,7 +139,7 @@ const SetupWorkout = () => {
                   </SpaceBetween>
 
                   <SpaceBetween>
-                    <PSmall>Количество повторов сета:</PSmall>
+                    <PSmall>{t("workout.setupWorkout.numberOfRepetitionsInSet")}:</PSmall>
                     <S.RepeatsSelect
                       value={set.repeats}
                       disabled={course.isEditable === false}
@@ -155,10 +157,10 @@ const SetupWorkout = () => {
                 <VSpace s={36} />
 
                 <S.HeaderRow>
-                  <PSmall>Упражнение</PSmall>
-                  <PSmall>Количество повторов/минут</PSmall>
-                  <PSmall>Модификаторы</PSmall>
-                  {course.isEditable && <PSmall>Действия</PSmall>}
+                  <PSmall>{t("workout.setupWorkout.exercise")}</PSmall>
+                  <PSmall>{t("workout.setupWorkout.numberOfRepetitions")}</PSmall>
+                  <PSmall>{t("workout.setupWorkout.modifiers")}</PSmall>
+                  {course.isEditable && <PSmall>{t("workout.setupWorkout.actions")}</PSmall>}
                 </S.HeaderRow>
 
                 {set.exercises.map((ex, exIndex) => (
@@ -169,7 +171,7 @@ const SetupWorkout = () => {
 
                 {course.isEditable && (
                   <Link to={`${pathname}/${setIndex}/create`}>
-                    <StrokeButton style={{ height: 40 }}>+ Добавить упражнение</StrokeButton>
+                    <StrokeButton style={{ height: 40 }}>+ {t("workout.setupWorkout.addExercise")}</StrokeButton>
                   </Link>
                 )}
               </S.SetCard>
@@ -185,11 +187,11 @@ const SetupWorkout = () => {
       {course.isEditable && (
         <>
           <StrokeButton style={{ width: 904, height: 80 }} onClick={() => workout.addSet()}>
-            + Добавить сет
+            + {t("workout.setupWorkout.addSet")}
           </StrokeButton>
           <VSpace s={40} />
           <ActionButton style={{ width: 343 }} onClick={saveWorkout}>
-            {workout.isDraft ? "Создать тренировку" : "Сохранить изменения"}
+            {workout.isDraft ? t("workout.setupWorkout.createWorkout") : t("workout.setupWorkout.saveChanges")}
           </ActionButton>
         </>
       )}
@@ -198,6 +200,7 @@ const SetupWorkout = () => {
 };
 
 const ExerciseCard = ({ ex, course, workout, setIndex, exIndex }) => {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
 
   return (
@@ -209,7 +212,7 @@ const ExerciseCard = ({ ex, course, workout, setIndex, exIndex }) => {
         <Link to={`${pathname}/${setIndex}/${exIndex}/modifiers`}>
           <PureButton>
             <P style={{ color: "#7933D2" }}>
-              {ex.modificators.length ? `${ex.modificators.length} модификатора` : "Добавить модификатор"}
+              {ex.modificators.length ? `${ex.modificators.length} ${t("workout.setupWorkout.modifier")}` : t("workout.setupWorkout.addModifier")}
             </P>
           </PureButton>
         </Link>

@@ -1,0 +1,217 @@
+{
+    "components": {
+        "card": {
+            "title": "Название",
+            "actions": "Действия"
+        },
+        "header": {
+            "courses": "Курсы тренировок",
+            "logout": "Выйти"
+        }
+    },
+    "course": {
+        "index": {
+            "breadCourses": "Курсы тренировок",
+            "title": "Курс",
+            "buttons": {
+                "publish": "Опубликовать",
+                "create": "Создать тренировку"
+            },
+            "users": "Пользователи",
+            "inviteCode": "Инвайт-код",
+            "unspecified": "Не указано",
+            "numbersOfSets": "Кол-во сетов",
+            "launch": "Запустить"
+        },
+        "publish": {
+            "title": "Опубликовать курс",
+            "caution": "Внимание! После публикации курс будет недоступен для редактирования и вы сможете отправить инвайт-код участникам для начала тренировок. Однако вы сможете изменить дедлайн курса.",
+            "description": "Укажите дату окончания курса, после которой участники больше не смогут по нему заниматься",
+            "endDatePlaceholder": "Дата окончания курса",
+            "enablePhotosOffer": "Включить отправку фотографий у пользователей во время тренировки каждые 5 секунд. Фотографии будут отображаться в визуалиции видеоотчетов",
+            "enablePhotosCaution": "Внимание, мы оповестим пользователей о том, что их тренировки записываются, по возможности не включайте эту опцию.",
+            "actionButton": "Опубликовать"
+        },
+        "rename": {
+            "editDeadline": "Изменить дедлайн курса",
+            "setEndDate": "Укажите дату окончания курса, после которой участники больше не смогут по нему заниматься",
+            "endDatePlaceholder": "Дата окончания курса",
+            "save": "Сохранить",
+            "renameCourse": "Переименовать курс",
+            "courseNamePlaceholder": "Название курса",
+            "courseDescriptionPlaceholder": "Описание курса"
+        }
+    },
+    "courses": {
+        "create": {
+            "createCourse": "Создать курс",
+            "courseNamePlaceholder": "Название курса",
+            "courseDescriptionPlaceholder": "Описание курса",
+            "continue": "Продолжить"
+        },
+        "index": {
+            "numberOfWorkouts": "Кол-во тренировок",
+            "numberOfUsers": "Кол-во участников",
+            "deadline": "Дедлайн",
+            "notPublished": "Не опубликован",
+            "courses": "Курсы тренировок",
+            "createCourse": "Создать курс",
+            "unpublished": "Неопубликованные",
+            "active": "Активные",
+            "completed": "Выполненные"
+        }
+    },
+    "login": {
+        "index": {
+            "login": "Вход",
+            "emailPlaceholder": "Email",
+            "passwordPlaceholder": "Пароль",
+            "logon": "Войти",
+            "questions": "Возникли вопросы",
+            "writeUs": "Напишите нам"
+        }
+    },
+    "store": {
+        "course": {
+            "deleteWorkoutConfirm": "Вы уверены, что хотите удалить тренировку?",
+            "deleteUserConfirm": "Вы уверены, что хотите удалить пользователя"
+        },
+        "exercise": {
+            "repeats": "повторов",
+            "seconds": "секунд"
+        },
+        "index": {
+            "deleteCourseConfirm": "Вы уверены, что хотите удалить курс?"
+        },
+        "modificator": {
+            "skips": "Пропуски",
+            "complications": "Усложнения",
+            "simplifications": "Упрощения",
+            "men": "мужчин",
+            "women": "женщин",
+            "complete": "полных",
+            "ordinary": "обычных",
+            "sports": "спортивных",
+            "everyone": "всех",
+            "for": "для"
+        },
+        "workout": {
+            "deleteSetConfirm": "Вы уверены, что хотите удалить сет?",
+            "deleteExerciseConfirm": "Вы уверены, что хотите удалить упражнение?"
+        }
+    },
+    "users": {
+        "columns": {
+            "notSpecified": "Не указан",
+            "name": "ФИО",
+            "age": "Возраст",
+            "gender": "Пол",
+            "male": "Мужской",
+            "female": "Женский",
+            "training": "Тренировок",
+            "from": "из",
+            "progress": "Прогресс",
+            "workout": "Тренировка",
+            "date": "Дата",
+            "time": "Время"
+        },
+        "index": {
+            "course": "Курсы тренировок",
+            "courseUsers": "Пользователи курса",
+            "exporting": "Экспортируем...",
+            "export": "Экспорт"
+        },
+        "table": {
+            "name": "ФИО",
+            "date": "Дата"
+        }
+    },
+    "workout": {
+        "modifiers": {
+            "modifiers": "Модификаторы",
+            "addMore": "Добавить еще"
+        },
+        "setupExercise": {
+            "addExercise": "Добавить упражнение",
+            "edit": "Редактировать",
+            "exerciseNamePlaceholder": "Название упражнения",
+            "numberOfRepetitions": "Количество повторов",
+            "executionTime": "Время выполнения",
+            "add": "Добавить",
+            "save": "Сохранить"
+        },
+        "setupModifier": {
+            "add": "Добавить",
+            "edit": "Редактировать",
+            "modificator": "модификатор",
+            "forGenderPlaceholder": "Для какого пола",
+            "forEveryone": "Для всех",
+            "forMale": "Для мужчин",
+            "forFemale": "Для женщин",
+            "physique": "Телосложение",
+            "any": "Любое",
+            "complete": "Полное",
+            "normal": "Обычное",
+            "strong": "Подтянутое",
+            "modificatorTypePlaceholder": "Тип модификатора",
+            "skipExercise": "Пропуск упражнения",
+            "complicate": "Усложнение",
+            "simplify": "Упрощение",
+            "value": "Величина",
+            "complications": "усложнения",
+            "simplifications": "упрощения",
+            "by": "на"
+        },
+        "setupWorkout": {
+            "createWorkout": "Создать тренировку",
+            "editWorkout": "Редактировать тренировку",
+            "courses": "Курсы тренировок",
+            "watchWorkout": "Посмотреть тренировку",
+            "information": "Общая информация",
+            "workoutNamePlaceholder": "Название тренировки",
+            "sets": "Сеты",
+            "set": "СЕТ",
+            "numberOfRepetitionsInSet": "Количество повторов сета",
+            "exercise": "Упражнение",
+            "numberOfRepetitions": "Количество повторов/минут",
+            "modifiers": "Модификаторы",
+            "actions": "Действия",
+            "addExercise": "Добавить упражнение",
+            "addSet": "Добавить сет",
+            "saveChanges": "Сохранить изменения",
+            "modifier": "модификатора",
+            "addModifier": "Добавить модификатор"
+        }
+    },
+    "api": {
+        "exercises": {
+            "folding_bed": "раскладушка",
+            "knee_tightening": "скалолаз",
+            "burpee": "берпи",
+            "superman-left": "супермен на левую руку",
+            "superman-right": "супермен на правую руку",
+            "hip_thrust": "ягодичный мостик",
+            "toe_touches": "подъем копрпуса к ногам",
+            "side_plank-straight": "боковая планка грудью к камере",
+            "side_plank-back": "боковая планка спиной к камере",
+            "star": "бабочка",
+            "pushups": "отжимания",
+            "bicycle": "велосипед",
+            "leglifts": "подъем ног",
+            "lunges-left": "выпады на левую ногу",
+            "lunges-right": "выпады на правую ногу",
+            "squats": "приседание",
+            "twisting": "скручивание",
+            "knees_raising": "подъем колен",
+            "jumping": "выпрыгивания",
+            "reverse_pushups": "обратные отжимания на трицепс",
+            "sit_up": "скручивания с касанием пола",
+            "superman_lie": "супермен лежа на полу",
+            "swimmer": "пловец",
+            "superman_side": "супермен руки в стороны",
+            "angel_wings": "ангельские крылья",
+            "side_leglifts-left": "Подъем левой ноги",
+            "side_leglifts-right": "Подъем правой ноги"
+        }
+    }
+}

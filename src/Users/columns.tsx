@@ -1,4 +1,5 @@
 import { Row } from "react-table";
+import { t } from "i18next";
 import CourseModel from "../store/course";
 import { formatDate, formatSecs } from "../components/date";
 // @ts-ignore
@@ -9,22 +10,22 @@ const completed = (workouts: any[]) => workouts.reduce((acc, w) => acc + (w.stat
 
 export const getColumns = (course: CourseModel) => [
   {
-    accessor: (row: any) => row.name || "Не указано",
-    Header: "ФИО",
+    accessor: (row: any) => row.name || t("users.columns.notSpecified"),
+    Header: t("users.columns.name"),
   },
   {
-    Header: "Возраст",
-    accessor: (row: any) => row.age || "Не указан",
+    Header: t("users.columns.age"),
+    accessor: (row: any) => row.age || t("users.columns.notSpecified"),
   },
   {
-    Header: "Пол",
+    Header: t("users.columns.gender"),
     accessor: (row: any) => {
-      const gender = ["Не указан", "Мужской", "Женский"];
+      const gender = [t("users.columns.notSpecified"), t("users.columns.male"), t("users.columns.female")];
       return gender[row.sex || 0];
     },
   },
   {
-    Header: "Тренировок",
+    Header: t("users.columns.training"),
     sortType: (rowA: Row<UserDTO>, rowB: Row<UserDTO>) => {
       const a = rowA.original.workouts.length;
       const b = rowB.original.workouts.length;
@@ -33,11 +34,11 @@ export const getColumns = (course: CourseModel) => [
       return 0;
     },
     accessor: (row: any) => {
-      return `${completed(row.workouts)} из ${course.workouts.length}`;
+      return `${completed(row.workouts)} ${t("users.columns.from")} ${course.workouts.length}`;
     },
   },
   {
-    Header: "Прогресс",
+    Header: t("users.columns.progress"),
     accessor: (row: any) => {
       return Math.round((row.workouts.length / course.workouts.length) * 100) + "%";
     },
@@ -63,12 +64,12 @@ export const workoutColumns = [
   {
     width: 360,
     minWidth: 360,
-    accessor: (row: any) => row.name || "Не указано",
-    Header: "Тренировка",
+    accessor: (row: any) => row.name || t("users.columns.notSpecified"),
+    Header: t("users.columns.workout"),
   },
   {
     accessor: (row: any) => formatDate(row.timestamp * 1000),
-    Header: "Дата",
+    Header: t("users.columns.date"),
     sortType: (rowA: Row<UserDTO["workouts"][0]>, rowB: Row<UserDTO["workouts"][0]>) => {
       const a = rowA.original.timestamp;
       const b = rowB.original.timestamp;
@@ -79,7 +80,7 @@ export const workoutColumns = [
   },
   {
     accessor: (row: any) => formatSecs(row.total_time),
-    Header: "Время",
+    Header: t("users.columns.time"),
     sortType: (rowA: Row<UserDTO["workouts"][0]>, rowB: Row<UserDTO["workouts"][0]>) => {
       const a = rowA.original.total_time;
       const b = rowB.original.total_time;

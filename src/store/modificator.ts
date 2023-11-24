@@ -1,4 +1,5 @@
 import { action, computed, makeObservable, observable, toJS } from "mobx";
+import { t } from "i18next";
 import { ModifierDTO } from "./models";
 
 class ModificatorModel {
@@ -38,26 +39,26 @@ class ModificatorModel {
 
   get formattedName() {
     const types = {
-      SKIP: "Пропуски",
-      COMPLICATE: "Усложнения",
-      SIMPLIFY: "Упрощения",
+      SKIP: t("store.modificator.skips"),
+      COMPLICATE: t("store.modificator.complications"),
+      SIMPLIFY: t("store.modificator.simplifications"),
     };
 
     const gender = {
-      1: "мужчин",
-      2: "женщин",
+      1: t("store.modificator.men"),
+      2: t("store.modificator.women"),
     };
 
     const bodyType = {
-      weak: "полных",
-      normal: "обычных",
-      strong: "спортивных",
+      weak: t("store.modificator.complete"),
+      normal: t("store.modificator.ordinary"),
+      strong: t("store.modificator.sports"),
     };
 
     const value = this.type === "SKIP" ? "" : `${this.value}%`;
-    const sex = this.sex ? gender[this.sex] : "всех";
+    const sex = this.sex ? gender[this.sex] : t("store.modificator.everyone");
     const type = this.bodyType ? bodyType[this.bodyType] : "";
-    return `${types[this.type]} ${value} для ${sex} ${type}`;
+    return `${types[this.type]} ${value} ${t("store.modificator.for")} ${sex} ${type}`;
   }
 
   setBodyType(value: "strong" | "normal" | "weak") {

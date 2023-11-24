@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next'
 
 import { ActionButton } from "../components/button";
 import { PBold } from "../components/typographic";
@@ -9,6 +10,7 @@ import Modal from "../components/Modal";
 import store from "../store";
 
 function CreateCourse() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -24,22 +26,22 @@ function CreateCourse() {
 
   return (
     <Modal width={448} isOpen onClose={() => navigate("/courses")}>
-      <PBold style={{ textAlign: "center" }}>Создать курс</PBold>
+      <PBold style={{ textAlign: "center" }}>{t("courses.create.createCourse")}</PBold>
       <VSpace s={40} />
       <Input
         value={name}
-        placeholder="Название курса"
+        placeholder={t("courses.create.courseNamePlaceholder")}
         onChange={(e) => setName(e.target.value)}
       />
       <VSpace s={16} />
       <Textarea
         value={description}
-        placeholder="Описание курса"
+        placeholder={t("courses.create.courseDescriptionPlaceholder")}
         onChange={(e) => setDescription(e.target.value)}
       />
       <VSpace s={24} />
       <ActionButton onClick={create} disabled={!isValid || isLoading}>
-        Продолжить
+        {t("courses.create.continue")}
       </ActionButton>
     </Modal>
   );

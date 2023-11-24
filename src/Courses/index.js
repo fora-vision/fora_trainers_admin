@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
+import { useTranslation } from 'react-i18next'
 
 import { ReactComponent as IconTrash } from "../components/icons/trash.svg";
 import { ReactComponent as IconCopy } from "../components/icons/copy.svg";
@@ -14,6 +15,7 @@ import store from "../store";
 import * as S from "./styled";
 
 const Courses = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   useEffect(() => {
     void store.loadCourses();
@@ -29,11 +31,11 @@ const Courses = () => {
       number={i}
       title={course.name}
       properties={[
-        { label: "Кол-во тренировок", value: course.workouts.length },
-        { label: "Кол-во участников", value: course.usersCount },
+        { label: t("courses.index.numberOfWorkouts"), value: course.workouts.length },
+        { label: t("courses.index.numberOfUsers"), value: course.usersCount },
         {
-          label: "Дедлайн",
-          value: course.deadline && !course.isEditable ? formatDate(course.deadline) : "Не опубликован",
+          label: t("courses.index.deadline"),
+          value: course.deadline && !course.isEditable ? formatDate(course.deadline) : t("courses.index.notPublished"),
         },
       ]}
       onClick={() => navigate(`/courses/${course.id}`)}
@@ -56,15 +58,15 @@ const Courses = () => {
   return (
     <Container>
       <S.Header>
-        <H1>Курсы тренировок</H1>
+        <H1>{t("courses.index.courses")}</H1>
         <Link to="/courses/create">
-          <ActionButton>Создать курс</ActionButton>
+          <ActionButton>{t("courses.index.createCourse")}</ActionButton>
         </Link>
       </S.Header>
 
       {unpublish.length > 0 && (
         <div>
-          <H2>Неопубликованные</H2>
+          <H2>{t("courses.index.unpublished")}</H2>
           <br />
           {unpublish.map(renderCard)}
           <br />
@@ -73,7 +75,7 @@ const Courses = () => {
 
       {active.length > 0 && (
         <div>
-          <H2>Активные</H2>
+          <H2>{t("courses.index.active")}</H2>
           <br />
           {active.map(renderCard)}
           <br />
@@ -82,7 +84,7 @@ const Courses = () => {
 
       {archived.length > 0 && (
         <div>
-          <H2>Выполненные</H2>
+          <H2>{t("courses.index.completed")}</H2>
           <br />
           {archived.map(renderCard)}
           <br />
