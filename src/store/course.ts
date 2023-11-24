@@ -83,7 +83,7 @@ class CourseModel {
 
   async runClassroom(workout: number) {
     const url = await api.testWorkout(this.id, workout);
-    window.open(url, "_blank")?.focus();
+    window.open(url + "&v=2", "_blank")?.focus();
   }
 
   async removeWorkout(id: number) {
@@ -126,7 +126,7 @@ class CourseModel {
       link.setAttribute("download", this.name + "_users.xlsx");
       document.body.appendChild(link);
       link.click();
-    } catch { }
+    } catch {}
 
     runInAction(() => {
       this.isExporting = false;
