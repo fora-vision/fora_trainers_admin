@@ -1,4 +1,5 @@
 import { action, computed, makeObservable, observable, runInAction, toJS } from "mobx";
+import { t } from "i18next";
 import { CourseDTO, UserDTO } from "./models";
 import WorkoutModel from "./workout";
 import api from "./api";
@@ -86,7 +87,7 @@ class CourseModel {
   }
 
   async removeWorkout(id: number) {
-    const isConfirm = window.confirm("Вы уверены, что хотите удалить тренировку?");
+    const isConfirm = window.confirm(t("store.course.deleteWorkoutConfirm"));
     if (!isConfirm) return;
 
     this.workouts.splice(id, 1);
@@ -125,7 +126,7 @@ class CourseModel {
       link.setAttribute("download", this.name + "_users.xlsx");
       document.body.appendChild(link);
       link.click();
-    } catch {}
+    } catch { }
 
     runInAction(() => {
       this.isExporting = false;
@@ -133,7 +134,7 @@ class CourseModel {
   }
 
   async deleteUser(user: UserDTO) {
-    const isConfirm = window.confirm(`Вы уверены, что хотите удалить пользователя "${user.name}"?`);
+    const isConfirm = window.confirm(`${t("store.course.deleteUserConfirm")} "${user.name}"?`);
     if (!isConfirm) return;
 
     await api.deleteUser(this.id, user.id);

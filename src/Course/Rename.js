@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next'
 
 import useBreadcrumbs from "../components/useBreadcrumbs";
 import { ActionButton } from "../components/button";
@@ -9,6 +10,7 @@ import { VSpace } from "../components/layout";
 import Modal from "../components/Modal";
 
 function RenameCourse() {
+  const { t } = useTranslation();
   const { isLoading, course } = useBreadcrumbs();
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
@@ -40,21 +42,21 @@ function RenameCourse() {
   if (course.isEditable === false) {
     return (
       <Modal width={448} isOpen onClose={() => navigate(course.path, { replace: true })}>
-        <PBold style={{ textAlign: "center" }}>Изменить дедлайн курса</PBold>
+        <PBold style={{ textAlign: "center" }}>{t("course.rename.editDeadline")}</PBold>
         <VSpace s={18} />
         <PSmall style={{ textAlign: "center" }}>
-          Укажите дату окончания курса, после которой участники больше не смогут по нему заниматься
+          {t("course.rename.setEndDate")}
         </PSmall>
         <VSpace s={8} />
         <Input
           value={deadline}
           type="date"
-          placeholder="Дата окончания курса"
+          placeholder={t("course.rename.endDatePlaceholder")}
           onChange={(e) => setDeadline(e.target.value)}
         />
         <VSpace s={24} />
         <ActionButton onClick={create} disabled={isLoading}>
-          Сохранить
+          {t("course.rename.save")}
         </ActionButton>
       </Modal>
     );
@@ -62,14 +64,14 @@ function RenameCourse() {
 
   return (
     <Modal width={448} isOpen onClose={() => navigate(course.path, { replace: true })}>
-      <PBold style={{ textAlign: "center" }}>Переименовать курс</PBold>
+      <PBold style={{ textAlign: "center" }}>{t("course.rename.renameCourse")}</PBold>
       <VSpace s={40} />
-      <Input value={name} placeholder="Название курса" onChange={(e) => setName(e.target.value)} />
+      <Input value={name} placeholder={t("course.rename.courseNamePlaceholder")} onChange={(e) => setName(e.target.value)} />
       <VSpace s={16} />
-      <Textarea value={description} placeholder="Описание курса" onChange={(e) => setDescription(e.target.value)} />
+      <Textarea value={description} placeholder={t("course.rename.courseDescriptionPlaceholder")} onChange={(e) => setDescription(e.target.value)} />
       <VSpace s={24} />
       <ActionButton onClick={create} disabled={!isValid || isLoading}>
-        Сохранить
+        {t("course.rename.save")}
       </ActionButton>
     </Modal>
   );

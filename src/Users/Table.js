@@ -1,4 +1,5 @@
 import React, { useMemo, useEffect, useState } from "react";
+import { t } from "i18next";
 import styled from "styled-components";
 import { useTable, useFlexLayout, useSortBy, useExpanded } from "react-table";
 import { ReactComponent as ArrowDownIcon } from "../components/icons/arrow-down.svg";
@@ -56,7 +57,7 @@ const AnimatedSubRow = ({ row, visibleColumns, SubComponent }) => {
   );
 };
 
-const initialState = { sortBy: [{ id: "ФИО", desc: false }, { id: "Дата", desc: true }] };
+const initialState = { sortBy: [{ id: t("users.table.name"), desc: false }, { id: t("users.table.date"), desc: true }] };
 
 const Table = ({ columns, data, SubComponent, selected, onSelect }) => {
   const userColumns = useMemo(() => {

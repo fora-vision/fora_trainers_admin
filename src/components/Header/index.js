@@ -1,24 +1,42 @@
-import { observer } from "mobx-react-lite";
-import React from "react";
-import { useNavigate } from "react-router";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router";
+import { useTranslation } from 'react-i18next'
+import { observer } from "mobx-react-lite";
+import { Switch, Typography } from "@mui/material";
 import store from "../../store";
 import { PureButton } from "../button";
-import { Container } from "../layout";
 import { P } from "../typographic";
 import logoImage from "./logo.png";
 import * as S from "./styled";
+import i18n from "../../i18n";
 
 function Header() {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
+  const [isSwitchChecked, setIsSwitchChecked] = useState(false)
   const navigate = useNavigate();
   const logout = async () => {
     await store.logout();
     navigate("/login");
   };
 
-  if (!store.isLoged) return null;
+  useEffect(() => {
+    const language = i18n.language;
+    if (language === 'ru') {
+      setIsSwitchChecked(true)
+    }
+  }, [])
+  const handleSwitch = () => {
+    setIsSwitchChecked(!isSwitchChecked)
+    if (isSwitchChecked) {
+      i18n.changeLanguage('en');
+    } else {
+      i18n.changeLanguage('ru');
+    }
+  }
 
+  if (!store.isLoged) return null;
   return (
     <S.Header>
       <S.Navigation>
@@ -26,10 +44,15 @@ function Header() {
           <S.Logo src={logoImage} />
         </Link>
         <S.HeaderButton to="/courses" $selected={pathname.includes("course")}>
-          <P>Курсы тренировок</P>
+          <P>{t("components.header.courses")}</P>
         </S.HeaderButton>
+        <S.SwitchLanguage>
+          <Typography fontSize={14}>En</Typography>
+          <Switch checked={isSwitchChecked} size="small" onClick={handleSwitch} />
+          <Typography fontSize={14}>Ru</Typography>
+        </S.SwitchLanguage>
         <PureButton style={{ marginLeft: "auto" }} onClick={logout}>
-          <P>Выйти</P>
+          <P>{t("components.header.logout")}</P>
         </PureButton>
       </S.Navigation>
     </S.Header>

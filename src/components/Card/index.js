@@ -1,8 +1,10 @@
 import React from "react";
+import { useTranslation } from 'react-i18next'
 import { PBold, PSmall } from "../typographic";
 import * as S from "./styled";
 
 function Card({ onClick, number, title, properties, actions }) {
+  const { t } = useTranslation();
   return (
     <S.Card onClick={onClick}>
       <S.Column>
@@ -11,7 +13,7 @@ function Card({ onClick, number, title, properties, actions }) {
       </S.Column>
 
       <S.Column style={{ marginLeft: 16, width: 272 }}>
-        <PSmall>Название</PSmall>
+        <PSmall>{t("components.card.title")}</PSmall>
         <PBold>{title}</PBold>
       </S.Column>
 
@@ -25,7 +27,7 @@ function Card({ onClick, number, title, properties, actions }) {
 
         {actions && (
           <S.Column style={{ width: 104, alignItems: "flex-end" }} onClick={(e) => e.stopPropagation()}>
-            <PSmall>Действия</PSmall>
+            <PSmall>{t("components.card.actions")}</PSmall>
             {actions}
           </S.Column>
         )}

@@ -5,6 +5,8 @@ import { StyledEngineProvider, ThemeProvider, createTheme } from "@mui/material/
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import i18n from "./i18n";
+import { I18nextProvider } from "react-i18next";
 
 const theme = createTheme({
   typography: {
@@ -14,13 +16,26 @@ const theme = createTheme({
       "    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n" +
       "    sans-serif",
   },
+  palette: {
+    primary: {
+      main: '#7933d2'
+    }
+  }
 });
+
+const userLanguage = navigator.language.slice(0, 2);
+const supportedLanguages = ["en", "ru"];
+const defaultLanguage = "en";
+const language = supportedLanguages.includes(userLanguage) ? userLanguage : defaultLanguage;
+i18n.changeLanguage(language);
 
 ReactDOM.render(
   <React.StrictMode>
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <App />
+        <I18nextProvider i18n={i18n}>
+          <App />
+        </I18nextProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   </React.StrictMode>,

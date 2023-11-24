@@ -1,4 +1,5 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
+import { t } from "i18next";
 import CourseModel from "./course";
 import { ExerciseRuleDTO } from "./models";
 import api from "./api";
@@ -26,14 +27,14 @@ class ForaStore {
   }
 
   getExerciseName(id: string) {
-    return this.exercises[id]?.name ?? `${id} [Deleted]`;
+    return t(`api.exercises.${this.exercises[id]?.label}`) ?? `${id} [Deleted]`;
   }
 
   getExercisesList() {
     return Object.entries(this.exercises)
       .map(([id, ex]) => ({
         value: id,
-        label: ex.name,
+        label: t(`api.exercises.${ex.label}`),
       }))
       .sort((a, b) => {
         if (a.label < b.label) return -1;
@@ -61,7 +62,7 @@ class ForaStore {
   }
 
   async removeCourse(id: number) {
-    const isConfirm = window.confirm("Вы уверены, что хотите удалить курс?");
+    const isConfirm = window.confirm(t("store.index.deleteCourseConfirm"));
     if (!isConfirm) return;
 
     this.courses = this.courses.filter((item) => item.id !== id);

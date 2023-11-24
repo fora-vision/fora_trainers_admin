@@ -44,6 +44,7 @@ export const HeaderButton = styled(Link)`
 `;
 
 export const Navigation = styled.div`
+  position: relative;
   height: 80px;
   display: flex;
   align-items: center;
@@ -51,4 +52,12 @@ export const Navigation = styled.div`
   width: 1200px;
   box-sizing: border-box;
   background: #fff;
+`;
+
+export const SwitchLanguage = styled.div`
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 140px
 `;

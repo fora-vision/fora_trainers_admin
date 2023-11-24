@@ -1,4 +1,5 @@
 import { action, makeObservable, observable, toJS } from "mobx";
+import { t } from "i18next";
 import { WorkoutDTO } from "./models";
 import ExerciseModel from "./exercise";
 import CourseModel from "./course";
@@ -64,7 +65,7 @@ class WorkoutModel {
   }
 
   removeSet(set: number) {
-    const isConfirm = window.confirm("Вы уверены, что хотите удалить сет?");
+    const isConfirm = window.confirm(t("store.workout.deleteSetConfirm"));
     if (!isConfirm) return;
     this.sets.splice(set, 1);
   }
@@ -76,7 +77,7 @@ class WorkoutModel {
   }
 
   removeExercise(set: number, exercise: number) {
-    const isConfirm = window.confirm("Вы уверены, что хотите удалить упражнение?");
+    const isConfirm = window.confirm(t("store.workout.deleteExerciseConfirm"));
     if (!isConfirm) return;
 
     this.sets[set].exercises.splice(exercise, 1);

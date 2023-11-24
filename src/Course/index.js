@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from 'react-i18next'
 import { observer } from "mobx-react-lite";
 import { Navigate, Link, useNavigate } from "react-router-dom";
 
@@ -15,6 +16,7 @@ import * as S from "./styled";
 import useBreadcrumbs from "../components/useBreadcrumbs";
 
 const Course = () => {
+  const { t } = useTranslation();
   const { isLoading, course } = useBreadcrumbs();
   const navigate = useNavigate();
 
@@ -26,9 +28,9 @@ const Course = () => {
       <S.Header>
         <div>
           <Breadcrumbs>
-            <Link to="/courses">Курсы тренировок</Link>
+            <Link to="/courses">{t("course.index.breadCourses")}</Link>
           </Breadcrumbs>
-          <H1 style={{ marginRight: 32 }}>Курс «{course.name}»</H1>
+          <H1 style={{ marginRight: 32 }}>{t("course.index.title")} «{course.name}»</H1>
         </div>
 
         {course.isEditable ? (
@@ -39,10 +41,10 @@ const Course = () => {
               </StrokeButton>
             </Link>
             <Link to={`/courses/${course.id}/publish`}>
-              <StrokeButton style={{ width: 160 }}>Опубликовать</StrokeButton>
+              <StrokeButton style={{ width: 160 }}>{t("course.index.buttons.publish")}</StrokeButton>
             </Link>
             <Link style={{ marginLeft: 16 }} to={`/courses/${course.id}/create`}>
-              <ActionButton style={{ width: 220 }}>Создать тренировку</ActionButton>
+              <ActionButton style={{ width: 220 }}>{t("course.index.buttons.create")}</ActionButton>
             </Link>
           </SpaceBetween>
         ) : (
@@ -53,10 +55,10 @@ const Course = () => {
               </StrokeButton>
             </Link>
             <Link to={`/courses/${course.id}/users`}>
-              <StrokeButton>Пользователи ({course.usersCount})</StrokeButton>
+              <StrokeButton>{t("course.index.users")} ({course.usersCount})</StrokeButton>
             </Link>
             <StrokeButton as="div" style={{ marginLeft: 16, width: "fit-content" }}>
-              Инвайт-код: {course.inviteCode}
+              {t("course.index.inviteCode")}: {course.inviteCode}
             </StrokeButton>
           </SpaceBetween>
         )}
@@ -68,13 +70,13 @@ const Course = () => {
             <Card
               key={i}
               number={i}
-              title={workout.name || "Не указано"}
-              properties={[{ label: "Кол-во сетов", value: workout.sets.length }]}
+              title={workout.name || t("course.index.unspecified")}
+              properties={[{ label: t("course.index.numbersOfSets"), value: workout.sets.length }]}
               onClick={() => navigate(`/courses/${course.id}/${i}`)}
               actions={
                 <div style={{ display: "flex" }}>
                   <PureButton onClick={() => course.runClassroom(i)}>
-                    <P>Запустить</P>
+                    <P>{t("course.index.launch")}</P>
                   </PureButton>
 
                   {course.isEditable && (
