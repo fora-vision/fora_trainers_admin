@@ -57,7 +57,12 @@ const AnimatedSubRow = ({ row, visibleColumns, SubComponent }) => {
   );
 };
 
-const initialState = { sortBy: [{ id: t("users.table.name"), desc: false }, { id: t("users.table.date"), desc: true }] };
+const initialState = {
+  sortBy: [
+    { id: "name", desc: false },
+    { id: "date", desc: true },
+  ],
+};
 
 const Table = ({ columns, data, SubComponent, selected, onSelect }) => {
   const userColumns = useMemo(() => {

@@ -1,217 +1,217 @@
 {
-    "components": {
-        "card": {
-            "title": "Title",
-            "actions": "Actions"
-        },
-        "header": {
-            "courses": "Training courses",
-            "logout": "Log out"
-        }
+  "components": {
+    "card": {
+      "title": "Title",
+      "actions": "Actions"
     },
+    "header": {
+      "courses": "Training courses",
+      "logout": "Log out"
+    }
+  },
+  "course": {
+    "index": {
+      "breadCourses": "Training courses",
+      "title": "Course",
+      "buttons": {
+        "publish": "Publish",
+        "create": "Create a workout"
+      },
+      "users": "Users",
+      "inviteCode": "Invite-code",
+      "unspecified": "Not specified",
+      "numbersOfSets": "Number of sets",
+      "launch": "Launch"
+    },
+    "publish": {
+      "title": "Publish course",
+      "caution": "Caution! Once published, the course will not be available for editing and you will be able to send an invite code to participants to start training. However, you will be able to change the course deadline.",
+      "description": "Specify the end date of the course, after which participants can no longer take the course",
+      "endDatePlaceholder": "End date of course",
+      "enablePhotosOffer": "Enable sending photos in users during a workout every 5 seconds. Photos will be displayed in the visualization of video reports",
+      "enablePhotosCaution": "Warning, we will notify users that their workouts are being recorded, if possible, do not enable this option.",
+      "actionButton": "Publish"
+    },
+    "rename": {
+      "editDeadline": "Change course deadline",
+      "setEndDate": "Specify the end date after which participants can no longer take the course",
+      "endDatePlaceholder": "End date of course",
+      "save": "Save",
+      "renameCourse": "Rename Course",
+      "courseNamePlaceholder": "Course name",
+      "courseDescriptionPlaceholder": "Course description"
+    }
+  },
+  "courses": {
+    "create": {
+      "createCourse": "Create course",
+      "courseNamePlaceholder": "Course name",
+      "courseDescriptionPlaceholder": "Course description",
+      "continue": "Continue"
+    },
+    "index": {
+      "numberOfWorkouts": "Number of workouts",
+      "numberOfUsers": "Number of users",
+      "deadline": "Deadline",
+      "notPublished": "Not published",
+      "courses": "Training courses",
+      "createCourse": "Create course",
+      "unpublished": "Unpublished",
+      "active": "Active",
+      "completed": "Executed"
+    }
+  },
+  "login": {
+    "index": {
+      "login": "Log in",
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "logon": "Log on",
+      "questions": "Any questions",
+      "writeUs": "Write to us"
+    }
+  },
+  "store": {
     "course": {
-        "index": {
-            "breadCourses": "Training courses",
-            "title": "Course",
-            "buttons": {
-                "publish": "Publish",
-                "create": "Create a workout"
-            },
-            "users": "Users",
-            "inviteCode": "Invite-code",
-            "unspecified": "Not specified",
-            "numbersOfSets": "Number of sets",
-            "launch": "Launch"
-        },
-        "publish": {
-            "title": "Publish course",
-            "caution": "Caution! Once published, the course will not be available for editing and you will be able to send an invite code to participants to start training. However, you will be able to change the course deadline.",
-            "description": "Specify the end date of the course, after which participants can no longer take the course",
-            "endDatePlaceholder": "End date of course",
-            "enablePhotosOffer": "Enable sending photos in users during a workout every 5 seconds. Photos will be displayed in the visualization of video reports",
-            "enablePhotosCaution": "Warning, we will notify users that their workouts are being recorded, if possible, do not enable this option.",
-            "actionButton": "Publish"
-        },
-        "rename": {
-            "editDeadline": "Change course deadline",
-            "setEndDate": "Specify the end date after which participants can no longer take the course",
-            "endDatePlaceholder": "End date of course",
-            "save": "Save",
-            "renameCourse": "Rename Course",
-            "courseNamePlaceholder": "Course name",
-            "courseDescriptionPlaceholder": "Course description"
-        }
+      "deleteWorkoutConfirm": "Are you sure you want to delete the workout?",
+      "deleteUserConfirm": "Are you sure you want to delete the user"
     },
-    "courses": {
-        "create": {
-            "createCourse": "Create course",
-            "courseNamePlaceholder": "Course name",
-            "courseDescriptionPlaceholder": "Course description",
-            "continue": "Continue"
-        },
-        "index": {
-            "numberOfWorkouts": "Number of workouts",
-            "numberOfUsers": "Number of users",
-            "deadline": "Deadline",
-            "notPublished": "Not published",
-            "courses": "Training courses",
-            "createCourse": "Create course",
-            "unpublished": "Unpublished",
-            "active": "Active",
-            "completed": "Executed"
-        }
+    "exercise": {
+      "repeats": "repeats",
+      "seconds": "seconds"
     },
-    "login": {
-        "index": {
-            "login": "Log in",
-            "emailPlaceholder": "Email",
-            "passwordPlaceholder": "Password",
-            "logon": "Log on",
-            "questions": "Any questions",
-            "writeUs": "Write to us"
-        }
+    "index": {
+      "deleteCourseConfirm": "Are you sure you want to delete the course?"
     },
-    "store": {
-        "course": {
-            "deleteWorkoutConfirm": "Are you sure you want to delete the workout?",
-            "deleteUserConfirm": "Are you sure you want to delete the user"
-        },
-        "exercise": {
-            "repeats": "repeats",
-            "seconds": "seconds"
-        },
-        "index": {
-            "deleteCourseConfirm": "Are you sure you want to delete the course?"
-        },
-        "modificator": {
-            "skips": "Skips",
-            "complications": "Complications",
-            "simplifications": "Simplifications",
-            "men": "men",
-            "women": "women",
-            "complete": "complete",
-            "ordinary": "usual",
-            "sports": "sports",
-            "everyone": "everyone",
-            "for": "for"
-        },
-        "workout": {
-            "deleteSetConfirm": "Are you sure you want to delete the set?",
-            "deleteExerciseConfirm": "Are you sure you want to delete the exercise?"
-        }
-    },
-    "users": {
-        "columns": {
-            "notSpecified": "Not specified",
-            "name": "Name",
-            "age": "Age",
-            "gender": "Gender",
-            "male": "Male",
-            "female": "Female",
-            "training": "Training",
-            "from": "from",
-            "progress": "Progress",
-            "workout": "Workout",
-            "date": "Date",
-            "time": "Time"
-        },
-        "index": {
-            "course": "Training courses",
-            "courseUsers": "Course users",
-            "exporting": "Exporting...",
-            "export": "Export"
-        },
-        "table": {
-            "name": "Name",
-            "date": "Date"
-        }
+    "modificator": {
+      "skips": "Skips",
+      "complications": "Complications",
+      "simplifications": "Simplifications",
+      "men": "men",
+      "women": "women",
+      "complete": "complete",
+      "ordinary": "usual",
+      "sports": "sports",
+      "everyone": "everyone",
+      "for": "for"
     },
     "workout": {
-        "modifiers": {
-            "modifiers": "Modifiers",
-            "addMore": "Add more"
-        },
-        "setupExercise": {
-            "addExercise": "Add Exercise",
-            "edit": "Edit",
-            "exerciseNamePlaceholder": "Exercise name",
-            "numberOfRepetitions": "Number of repetitions",
-            "executionTime": "Execution time",
-            "add": "Add",
-            "save": "Save"
-        },
-        "setupModifier": {
-            "add": "Add",
-            "edit": "Edit",
-            "modificator": "modifier",
-            "forGenderPlaceholder": "For which gender",
-            "forEveryone": "For everyone",
-            "forMale": "For male",
-            "forFemale": "For female",
-            "physique": "Physique",
-            "any": "Any",
-            "complete": "Complete",
-            "normal": "Normal",
-            "strong": "Strong",
-            "modificatorTypePlaceholder": "Modifier type",
-            "skipExercise": "Skip Exercise",
-            "complicate": "Complication",
-            "simplify": "Simplify",
-            "value": "Value",
-            "complications": "Complications",
-            "simplifications": "Simplifications",
-            "by": "by"
-        },
-        "setupWorkout": {
-            "createWorkout": "Create workout",
-            "editWorkout": "Edit workout",
-            "courses": "Training courses",
-            "watchWorkout": "View workout",
-            "information": "General information",
-            "workoutNamePlaceholder": "Workout name",
-            "sets": "Sets",
-            "set": "SET",
-            "numberOfRepetitionsInSet": "Number of set repetitions",
-            "exercise": "Exercise",
-            "numberOfRepetitions": "Number of repetitions/minutes",
-            "modifiers": "Modifiers",
-            "actions": "Actions",
-            "addExercise": "Add Exercise",
-            "addSet": "Add set",
-            "saveChanges": "Save changes",
-            "modifier": "Modifier",
-            "addModifier": "Add modifier"
-        }
-    },
-    "api": {
-        "exercises": {
-            "folding_bed": "folding bed",
-            "knee_tightening": "knee tightening",
-            "burpee": "burpee",
-            "superman-left": "left superman",
-            "superman-right": "right superman",
-            "hip_thrust": "hip thrust",
-            "toe_touches": "toe touches",
-            "side_plank-straight": "straight side plank",
-            "side_plank-back": "back side plank",
-            "star": "star",
-            "pushups": "pushups",
-            "bicycle": "bicycle",
-            "leglifts": "leglifts",
-            "lunges-left": "left lunges",
-            "lunges-right": "right lunges",
-            "squats": "squats",
-            "twisting": "twisting",
-            "knees_raising": "knees raising",
-            "jumping": "jumping",
-            "reverse_pushups": "reverse pushups",
-            "sit_up": "sit up",
-            "superman_lie": "lie superman",
-            "swimmer": "swimmer",
-            "superman_side": "side superman",
-            "angel_wings": "angel wings",
-            "side_leglifts-left": "left side leglifts",
-            "side_leglifts-right": "right side leglifts"
-        }
+      "deleteSetConfirm": "Are you sure you want to delete the set?",
+      "deleteExerciseConfirm": "Are you sure you want to delete the exercise?"
     }
+  },
+  "users": {
+    "columns": {
+      "notSpecified": "Not specified",
+      "name": "Name",
+      "age": "Age",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "training": "Training",
+      "from": "from",
+      "progress": "Progress",
+      "workout": "Workout",
+      "date": "Date",
+      "time": "Time"
+    },
+    "index": {
+      "course": "Training courses",
+      "courseUsers": "Course users",
+      "exporting": "Exporting...",
+      "export": "Export"
+    },
+    "table": {
+      "name": "Name",
+      "date": "Date"
+    }
+  },
+  "workout": {
+    "modifiers": {
+      "modifiers": "Modifiers",
+      "addMore": "Add more"
+    },
+    "setupExercise": {
+      "addExercise": "Add Exercise",
+      "edit": "Edit",
+      "exerciseNamePlaceholder": "Exercise name",
+      "numberOfRepetitions": "Number of repetitions",
+      "executionTime": "Execution time",
+      "add": "Add",
+      "save": "Save"
+    },
+    "setupModifier": {
+      "add": "Add",
+      "edit": "Edit",
+      "modificator": "modifier",
+      "forGenderPlaceholder": "For which gender",
+      "forEveryone": "For everyone",
+      "forMale": "For male",
+      "forFemale": "For female",
+      "physique": "Physique",
+      "any": "Any",
+      "complete": "Complete",
+      "normal": "Normal",
+      "strong": "Strong",
+      "modificatorTypePlaceholder": "Modifier type",
+      "skipExercise": "Skip Exercise",
+      "complicate": "Complication",
+      "simplify": "Simplify",
+      "value": "Value",
+      "complications": "Complications",
+      "simplifications": "Simplifications",
+      "by": "by"
+    },
+    "setupWorkout": {
+      "createWorkout": "Create workout",
+      "editWorkout": "Edit workout",
+      "courses": "Training courses",
+      "watchWorkout": "View workout",
+      "information": "General information",
+      "workoutNamePlaceholder": "Workout name",
+      "sets": "Sets",
+      "set": "SET",
+      "numberOfRepetitionsInSet": "Number of set repetitions",
+      "exercise": "Exercise",
+      "numberOfRepetitions": "Number of repetitions/minutes",
+      "modifiers": "Modifiers",
+      "actions": "Actions",
+      "addExercise": "Add Exercise",
+      "addSet": "Add set",
+      "saveChanges": "Save changes",
+      "modifier": "Modifier",
+      "addModifier": "Add modifier"
+    }
+  },
+  "api": {
+    "exercises": {
+      "folding_bed": "folding bed",
+      "knee_tightening": "knee tightening",
+      "burpee": "burpee",
+      "superman-left": "left superman",
+      "superman-right": "right superman",
+      "hip_thrust": "hip thrust",
+      "toe_touches": "toe touches",
+      "side_plank-straight": "straight side plank",
+      "side_plank-back": "back side plank",
+      "star": "star",
+      "pushups": "pushups",
+      "bicycle": "bicycle",
+      "leglifts": "leglifts",
+      "lunges-left": "left lunges",
+      "lunges-right": "right lunges",
+      "squats": "squats",
+      "twisting": "twisting",
+      "knees_raising": "knees raising",
+      "jumping": "jumping",
+      "reverse_pushups": "reverse pushups",
+      "sit_up": "sit up",
+      "superman_lie": "lie superman",
+      "swimmer": "swimmer",
+      "superman_side": "side superman",
+      "angel_wings": "angel wings",
+      "side_leglifts-left": "left side leglifts",
+      "side_leglifts-right": "right side leglifts"
+    }
+  }
 }

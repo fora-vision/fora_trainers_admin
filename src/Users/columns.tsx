@@ -16,6 +16,7 @@ export const getColumns = (course: CourseModel) => [
   {
     Header: t("users.columns.age"),
     accessor: (row: any) => row.age || t("users.columns.notSpecified"),
+    id: "age",
   },
   {
     Header: t("users.columns.gender"),
@@ -44,7 +45,7 @@ export const getColumns = (course: CourseModel) => [
     },
   },
   {
-    Header: () => null,
+    Header: "",
     id: "actions",
     width: 38,
     Cell: ({ row }: any) => (
@@ -65,11 +66,13 @@ export const workoutColumns = [
     width: 360,
     minWidth: 360,
     accessor: (row: any) => row.name || t("users.columns.notSpecified"),
-    Header: t("users.columns.workout"),
+    Header: t("users.columns.workout") || "Workout",
+    id: "name",
   },
   {
+    id: "timestamp",
     accessor: (row: any) => formatDate(row.timestamp * 1000),
-    Header: t("users.columns.date"),
+    Header: t("users.columns.date") || "Date",
     sortType: (rowA: Row<UserDTO["workouts"][0]>, rowB: Row<UserDTO["workouts"][0]>) => {
       const a = rowA.original.timestamp;
       const b = rowB.original.timestamp;
@@ -79,8 +82,9 @@ export const workoutColumns = [
     },
   },
   {
+    id: "total_time",
     accessor: (row: any) => formatSecs(row.total_time),
-    Header: t("users.columns.time"),
+    Header: t("users.columns.time") || "Time",
     sortType: (rowA: Row<UserDTO["workouts"][0]>, rowB: Row<UserDTO["workouts"][0]>) => {
       const a = rowA.original.total_time;
       const b = rowB.original.total_time;

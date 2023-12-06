@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from "react-i18next";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import { Link, Navigate } from "react-router-dom";
@@ -18,7 +18,6 @@ import * as S from "./styled";
 
 const WorkoutTable = ({ row }) => {
   const [selected, setSelected] = useState(null);
-
   return (
     <S.Workouts isOpen={row.isExpanded}>
       <Table
@@ -63,7 +62,9 @@ const Users = () => {
             <Link to="/courses">{t("users.index.course")}</Link>
             <Link to={course.path}>{course.name}</Link>
           </Breadcrumbs>
-          <H1>{t("users.index.courseUsers")} ({course.users.length})</H1>
+          <H1>
+            {t("users.index.courseUsers")} ({course.users.length})
+          </H1>
         </div>
         <StrokeButton onClick={() => course.downloadXlsx()} disabled={course.isExporting}>
           {course.isExporting ? t("users.index.exporting") : t("users.index.export")}
