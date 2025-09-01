@@ -67,7 +67,7 @@ const Login = () => {
       <PSmall style={{ textAlign: "center", color: "#65656D" }}>
         {t("login.index.questions")}?
         <br />
-        {t("login.index.writeUs")}: help@fora.vision
+        {t("login.index.writeUs")}: aborisova@fora.vision
       </PSmall>
     </LoginForm>
   );

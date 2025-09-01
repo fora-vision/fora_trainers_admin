@@ -108,7 +108,7 @@ function Header() {
                 content={
                   <Card style={{ width: 300 }}>
                     Хотите больше минут для ваших тренировок? Напишите нам на почту{" "}
-                    <UiLink href="mailto:help@fora.vision">help@fora.vision</UiLink>
+                    <UiLink href="mailto:aborisova@fora.vision">help@fora.vision</UiLink>
                   </Card>
                 }
               >
@@ -126,7 +126,7 @@ function Header() {
                   text: `Switch lang | ${isSwitchChecked ? "EN" : "RU"}`,
                 },
                 {
-                  action: () => window.open("mailto:help@fora.vision"),
+                  action: () => window.open("mailto:aborisova@fora.vision"),
                   iconStart: <Icon data={CircleQuestion} />,
                   text: "Email Support",
                 },

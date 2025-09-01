@@ -87,7 +87,7 @@ const CreateAccount = () => {
       <PSmall style={{ textAlign: "center", color: "#65656D" }}>
         Возникли вопросы?
         <br />
-        Напишите нам: help@fora.vision
+        Напишите нам: aborisova@fora.vision
       </PSmall>
     </LoginForm>
   );
