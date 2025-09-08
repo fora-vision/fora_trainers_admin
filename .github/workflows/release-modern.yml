@@ -1,0 +1,76 @@
+name: Build and Release (Modern)
+
+on:
+  push:
+    branches:
+      - main # Triggers on every commit to main branch
+    tags:
+      - "v*" # Triggers on version tags like v1.0.0, v2.1.3, etc.
+  workflow_dispatch: # Allows manual triggering from GitHub UI
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Create release archive
+        run: |
+          # Create a zip archive of the build directory
+          cd build
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            # For main branch commits, use commit SHA
+            zip -r ../fora-admin-${{ github.sha }}.zip .
+          else
+            # For tags, use tag name
+            zip -r ../fora-admin-${{ github.ref_name }}.zip .
+          fi
+          cd ..
+
+      - name: Create Release with GitHub CLI
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          gh release create ${{ github.ref_name }} \
+            --title "Release ${{ github.ref_name }}" \
+            --notes "## Fora Admin ${{ github.ref_name }}
+
+          This release contains the built Fora Admin application.
+
+          ### What's included:
+          - Built React application ready for deployment
+          - All static assets and dependencies
+
+          ### Installation:
+          1. Download the \`fora-admin-${{ github.ref_name }}.zip\` file
+          2. Extract the contents to your web server
+          3. Configure your web server to serve the \`index.html\` file
+
+          ### Build Details:
+          - Node.js version: 18
+          - Build command: \`npm run build\`
+          - Build date: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" \
+            fora-admin-${{ github.ref_name }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Build Artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: fora-admin-build-${{ github.sha }}
+          path: fora-admin-${{ github.sha }}.zip
+          retention-days: 30
