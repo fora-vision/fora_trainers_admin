@@ -34,7 +34,7 @@ jobs:
 
       - name: Create zip archive
         run: |
-          cd dist
+          cd build
           zip -r ../fora-web-build.zip .
           cd ..
 
