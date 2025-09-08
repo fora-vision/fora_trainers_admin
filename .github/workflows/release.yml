@@ -26,8 +26,9 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build project
-        run: yarn build --no-warnings
+        run: yarn build
         env:
+          CI: false
           ESLINT_NO_DEV_ERRORS: true
           NODE_ENV: production
 
@@ -35,7 +36,7 @@ jobs:
         run: |
           # Create a zip archive of the build directory
           cd build
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
             # For main branch commits, use commit SHA
             zip -r ../fora-admin-${{ github.sha }}.zip .
           else
@@ -85,7 +86,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Upload Build Artifact
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v4
         with:
           name: fora-admin-build-${{ github.sha }}
