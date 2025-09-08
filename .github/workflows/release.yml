@@ -32,63 +32,32 @@ jobs:
           ESLINT_NO_DEV_ERRORS: true
           NODE_ENV: production
 
-      - name: Create release archive
+      - name: Create zip archive
         run: |
-          # Create a zip archive of the build directory
-          cd build
-          if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
-            # For main branch commits, use commit SHA
-            zip -r ../fora-admin-${{ github.sha }}.zip .
-          else
-            # For tags, use tag name
-            zip -r ../fora-admin-${{ github.ref_name }}.zip .
-          fi
+          cd dist
+          zip -r ../fora-web-build.zip .
           cd ..
 
+      - name: Get commit info
+        id: commit
+        run: |
+          echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+          echo "date=$(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
+
       - name: Create Release
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
+          tag_name: build-${{ steps.commit.outputs.sha }}
+          name: Build ${{ steps.commit.outputs.sha }}
           body: |
-            ## Fora Admin ${{ github.ref_name }}
+            **Commit:** ${{ steps.commit.outputs.sha }}
+            **Message:** ${{ steps.commit.outputs.message }}
+            **Date:** ${{ steps.commit.outputs.date }}
 
-            This release contains the built Fora Admin application.
-
-            ### What's included:
-            - Built React application ready for deployment
-            - All static assets and dependencies
-
-            ### Installation:
-            1. Download the `fora-admin-${{ github.ref_name }}.zip` file
-            2. Extract the contents to your web server
-            3. Configure your web server to serve the `index.html` file
-
-            ### Build Details:
-            - Node.js version: 18
-            - Build command: `yarn build`
-            - Build date: ${{ github.event.head_commit.timestamp }}
+            This is an automated build release for commit ${{ steps.commit.outputs.sha }}.
+          files: fora-web-build.zip
           draft: false
           prerelease: false
-
-      - name: Upload Release Asset
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./fora-admin-${{ github.ref_name }}.zip
-          asset_name: fora-admin-${{ github.ref_name }}.zip
-          asset_content_type: application/zip
-
-      - name: Upload Build Artifact
-        if: github.ref == 'refs/heads/master'
-        uses: actions/upload-artifact@v4
-        with:
-          name: fora-admin-build-${{ github.sha }}
-          path: fora-admin-${{ github.sha }}.zip
-          retention-days: 30
